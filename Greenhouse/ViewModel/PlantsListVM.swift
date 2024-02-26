@@ -7,6 +7,7 @@ class PlantsListVM: ObservableObject {
     private let plantsRepository: PlantsRepository
     private let pagination: Pagination
     @Published var plants: [PlantLS] = []
+    @Published var error = false
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -14,9 +15,9 @@ class PlantsListVM: ObservableObject {
         self.getPlantUC = getPlantUC
         self.plantsRepository = plantsRepository
         self.pagination = pagination
-        savePlantsInStorage(currentPage: loadMoreContent())
+        tryUpdatePlants(currentPage: loadMoreContent())
         getPlantsfromLS()
-    
+        
     }
     
     func getPlantsfromLS() {
@@ -29,6 +30,7 @@ class PlantsListVM: ObservableObject {
                 },
                 receiveValue: { value in
                     var buferList: [PlantLS] = []
+                    self.plants = []
                     buferList = self.plants
                     buferList.append(contentsOf: value)
                     self.plants = buferList
@@ -38,13 +40,24 @@ class PlantsListVM: ObservableObject {
     }
     
     
-    func savePlantsInStorage(currentPage: Int) {
-        plantsRepository.savePlantsInStorage(currentPage: currentPage)
-        print("testVM_savePlantsInStorage")
+    func tryUpdatePlants(currentPage: Int) {
+        Task {
+            let result = await plantsRepository.tryUpdatePlants(currentPage: currentPage)
+            if result != nil {
+                error = true
+            }
+            else {
+                error = false
+            }
+        }
     }
     
     func loadMoreContent() -> Int {
         return pagination.loadMoreContent()
+    }
+    
+    func getError() {
+        
     }
     
     

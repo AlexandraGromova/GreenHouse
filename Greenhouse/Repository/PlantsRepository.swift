@@ -12,26 +12,20 @@ class PlantsRepository {
         self.localSource = localSource
     }
     
-    func getPlantsfromRS(currentPage: Int) async -> [Plant] {
-        let response = await remouteSource.getResponsePlants(currentPage: currentPage)
+    func tryUpdatePlants(currentPage: Int) async -> HttpError? {
+        let response = await self.remouteSource.getResponsePlants(currentPage: currentPage)
         switch response {
         case .success(let value):
-            return value.data
-        case .failure(_):
-            return []
+            localSource.savePlants(list: value.data)
+        case .failure(let error):
+            print("testResult error \(error)")
+            return error
         }
+        return nil
     }
-     
-    func savePlantsInStorage(currentPage: Int) {
-        Task {
-            let response = await remouteSource.getResponsePlants(currentPage: currentPage)
-            switch response {
-            case .success(let value):
-                try localSource.savePlants(object: value.data)
-            case .failure(let error):
-                print("testResult error \(error)")
-            }
-        }
+    
+    func getError() {
+        print("getError")
     }
     
     func getPlantsFromStorage() -> AnyPublisher<[PlantLS], any Error> {

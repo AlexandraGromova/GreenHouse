@@ -6,24 +6,19 @@ class LocalSource {
     
     let realm = try! Realm()
     
-    func savePlants(object: [Plant]) throws {
+    func savePlants(list: [Plant]) {
         DispatchQueue.main.async {
-            try! self.realm.write {
-                print("test_ls_savePlantsInStorage")
-                object.forEach { plant in
-                    if plant.id == self.realm.object(ofType: PlantLS.self, forPrimaryKey: plant.id)?.id {
-                        print("double")
+            do {
+                try self.realm.write {
+                    let listPlantLS = list.map { plant in
+                        PlantLS(id: plant.id, common_name: plant.common_name, default_imagels: DefaultImageLS(small_url: plant.default_image?.small_url))
                     }
-                    else {
-                        let plantLS = PlantLS()
-                        plantLS.id = plant.id
-                        plantLS.common_name = plant.common_name
-                        self.realm.add(plantLS.self)
-                        print("add")
-                    }
+                    self.realm.add(listPlantLS, update: .all)
                 }
             }
-            
+            catch {
+                print("errorSavePlants")
+            }
         }
     }
     

@@ -212,7 +212,6 @@
 			children = (
 				D95C8C552B754C1A004C6929 /* RemouteSource.swift */,
 				D916A5502B84CC9100B0A92B /* Pagination.swift */,
-				D9091B1D2B7A47B600F0ADCF /* PlantLS.swift */,
 				D9135E532B768D4B00CBD622 /* LocalSource.swift */,
 			);
 			path = Model;
@@ -221,6 +220,7 @@
 		D95C8C522B754407004C6929 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				D9091B1D2B7A47B600F0ADCF /* PlantLS.swift */,
 				D95C8C5C2B755C4F004C6929 /* Plants.swift */,
 			);
 			path = DTO;
