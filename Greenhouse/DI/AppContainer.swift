@@ -13,16 +13,16 @@ class AppContainer {
             LocalSource()
         }
         container.register(Pagination.self) { r in
-            Pagination()
+            Pagination(repository: r.resolve(PlantsRepository.self)!)
         }
         container.register(PlantsRepository.self) { r in
             PlantsRepository(remouteSource: r.resolve(RemouteSource.self)!, localSource: r.resolve(LocalSource.self)!)
         }
         container.register(GetPlantsUC.self) { r in
-            GetPlantsUC(plantsRepository: r.resolve(PlantsRepository.self)!)
+            GetPlantsUC(plantsRepository: r.resolve(PlantsRepository.self)!, pagination: r.resolve(Pagination.self)! )
         }
         container.register(PlantsListVM.self) { r in
-            PlantsListVM(getPlantUC: r.resolve(GetPlantsUC.self)!, plantsRepository: r.resolve(PlantsRepository.self)!, pagination: r.resolve(Pagination.self)! )
+            PlantsListVM(getPlantsUC: r.resolve(GetPlantsUC.self)!,  pagination: r.resolve(Pagination.self)!)
         }
         
     }

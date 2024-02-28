@@ -23,7 +23,6 @@ class LocalSource {
     }
     
     func getPlants() -> AnyPublisher<[PlantLS], any Error> {
-        print("test_ls_getPlantsFromStorage")
         return realm.objects(PlantLS.self)
             .collectionPublisher
             .map({ result in

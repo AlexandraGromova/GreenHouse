@@ -16,7 +16,8 @@ class PlantsRepository {
         let response = await self.remouteSource.getResponsePlants(currentPage: currentPage)
         switch response {
         case .success(let value):
-            localSource.savePlants(list: value.data)
+            //            pagination.getTotalPages(pages: value.total)
+            self.localSource.savePlants(list: value.data)
         case .failure(let error):
             print("testResult error \(error)")
             return error
@@ -24,12 +25,19 @@ class PlantsRepository {
         return nil
     }
     
-    func getError() {
-        print("getError")
-    }
-    
     func getPlantsFromStorage() -> AnyPublisher<[PlantLS], any Error> {
         return localSource.getPlants()
     }
+    
+    func getTotalPages() async -> Int {
+        let response = await self.remouteSource.getResponsePlants(currentPage: 1)
+        switch response {
+        case .success(let value):
+            return value.total
+        case .failure(_):
+            return 0
+        }
+    }
+    
 }
 

@@ -18,6 +18,7 @@
 		D9135E542B768D4B00CBD622 /* LocalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9135E532B768D4B00CBD622 /* LocalSource.swift */; };
 		D9135E562B769B0400CBD622 /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9135E552B769B0400CBD622 /* AppContainer.swift */; };
 		D916A5512B84CC9100B0A92B /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A5502B84CC9100B0A92B /* Pagination.swift */; };
+		D916A5532B8CE89400B0A92B /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A5522B8CE89400B0A92B /* Extension.swift */; };
 		D95C8C1E2B73ECC3004C6929 /* GreenhouseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C8C1D2B73ECC3004C6929 /* GreenhouseApp.swift */; };
 		D95C8C202B73ECC3004C6929 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C8C1F2B73ECC3004C6929 /* ContentView.swift */; };
 		D95C8C222B73ECC5004C6929 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D95C8C212B73ECC5004C6929 /* Assets.xcassets */; };
@@ -59,6 +60,7 @@
 		D9135E532B768D4B00CBD622 /* LocalSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSource.swift; sourceTree = "<group>"; };
 		D9135E552B769B0400CBD622 /* AppContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
 		D916A5502B84CC9100B0A92B /* Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pagination.swift; sourceTree = "<group>"; };
+		D916A5522B8CE89400B0A92B /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		D95C8C1A2B73ECC3004C6929 /* Greenhouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Greenhouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D95C8C1D2B73ECC3004C6929 /* GreenhouseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenhouseApp.swift; sourceTree = "<group>"; };
 		D95C8C1F2B73ECC3004C6929 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				D95C8C482B740D01004C6929 /* MainScreen.swift */,
 				D95C8C4C2B75419F004C6929 /* FavoriteListScreen.swift */,
 				D9091B252B7E6A1300F0ADCF /* Color.swift */,
+				D916A5522B8CE89400B0A92B /* Extension.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				D9135E522B768D3400CBD622 /* PlantsRepository.swift in Sources */,
 				D9091B192B76C63100F0ADCF /* GetPlantsUC.swift in Sources */,
 				D95C8C202B73ECC3004C6929 /* ContentView.swift in Sources */,
+				D916A5532B8CE89400B0A92B /* Extension.swift in Sources */,
 				D95C8C1E2B73ECC3004C6929 /* GreenhouseApp.swift in Sources */,
 				D9135E562B769B0400CBD622 /* AppContainer.swift in Sources */,
 				D9091B262B7E6A1300F0ADCF /* Color.swift in Sources */,

@@ -3,29 +3,25 @@ import Combine
 
 class PlantsListVM: ObservableObject {
     
-    private let getPlantUC: GetPlantsUC
-    private let plantsRepository: PlantsRepository
+    private let getPlantsUC: GetPlantsUC
     private let pagination: Pagination
     @Published var plants: [PlantLS] = []
-    @Published var error = false
+    @Published var hasError = true
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(getPlantUC: GetPlantsUC, plantsRepository: PlantsRepository, pagination: Pagination) {
-        self.getPlantUC = getPlantUC
-        self.plantsRepository = plantsRepository
+    init(getPlantsUC: GetPlantsUC, pagination: Pagination) {
+        self.getPlantsUC = getPlantsUC
         self.pagination = pagination
-        tryUpdatePlants(currentPage: loadMoreContent())
-        getPlantsfromLS()
-        
+        tryUpdatePlants()
+        getPlants()
     }
     
-    func getPlantsfromLS() {
-        plantsRepository.getPlantsFromStorage()
+    func getPlants() {
+        getPlantsUC.execute()
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { completion in
-                    
                     print(completion)
                 },
                 receiveValue: { value in
@@ -39,27 +35,13 @@ class PlantsListVM: ObservableObject {
             .store(in: &cancellables)
     }
     
-    
-    func tryUpdatePlants(currentPage: Int) {
+    func tryUpdatePlants() {
         Task {
-            let result = await plantsRepository.tryUpdatePlants(currentPage: currentPage)
-            if result != nil {
-                error = true
-            }
-            else {
-                error = false
+            let bufferValue = await getPlantsUC.tryUpdatePlants()
+            DispatchQueue.main.async {
+                self.hasError = bufferValue
             }
         }
     }
-    
-    func loadMoreContent() -> Int {
-        return pagination.loadMoreContent()
-    }
-    
-    func getError() {
-        
-    }
-    
-    
 }
 
