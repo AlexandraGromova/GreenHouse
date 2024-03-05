@@ -4,13 +4,14 @@ import RealmSwift
 class PlantLS: Object {
     @Persisted(primaryKey: true) var id: Int
     @Persisted var common_name: String
-    @Persisted var default_imagels: DefaultImageLS?
+    @Persisted var image: String
+//    @Persisted var default_imagels: DefaultImageLS?
     
-    convenience init(id: Int, common_name: String, default_imagels: DefaultImageLS?) {
+    convenience init(id: Int, common_name: String, image: String) {
         self.init()
         self.id = id
         self.common_name = common_name
-        self.default_imagels = default_imagels
+        self.image = image
     }
     
 }
@@ -23,3 +24,5 @@ class DefaultImageLS: Object {
         self.small_url = small_url
     }
 }
+
+

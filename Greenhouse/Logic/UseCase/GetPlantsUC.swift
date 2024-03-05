@@ -13,7 +13,7 @@ class GetPlantsUC {
         self.pagination = pagination
     }
     
-    func execute() -> AnyPublisher<[PlantLS], Error> {
+    func execute() -> AnyPublisher<[UIPlant], Never> {
         return plantsRepository.getPlantsFromStorage()
     }
     

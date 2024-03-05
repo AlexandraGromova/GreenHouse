@@ -9,8 +9,13 @@ struct PlantsListScreen: View {
         VStack() {
             ScrollView(showsIndicators: false) {
                 LazyVStack {
-                    ForEach(Array(vm.plants.enumerated()), id: \.offset) { index, plant in
-                        PlantsListSell(image: plant.default_imagels?.small_url ?? "", title: plant.common_name, id: "\(plant.id)")
+                    ForEach(Array(vm.plants.enumerated()), id: \.element) { index, plant in
+                        NavigationLink(destination: PlantDetailScreen(plant: plant)) {
+                            PlantsListSell(plant: plant) { plant in
+                                vm.savePlant(plant: plant)
+                            } onDeleteTapAction: { id in
+                                vm.deletePlant(plantID: id)
+                            }
                             .background(Color.lightGray)
                             .cornerRadius(20)
                             .padding(.vertical, 5)
@@ -19,6 +24,7 @@ struct PlantsListScreen: View {
                                     vm.tryUpdatePlants()
                                 }
                             }
+                        }
                     }
                 }
             }
@@ -42,17 +48,14 @@ struct PlantsListScreen: View {
 }
 
 struct PlantsListSell: View {
-    
-    var image: String
-    var title: String
-    var id: String
-    
-    @State var isPlaying : Bool = false
+    @State var plant: UIPlant
+    var onFavoriteTapAction: (UIPlant) -> ()
+    var onDeleteTapAction: (Int) -> ()
     
     var body: some View {
         HStack {
             Spacer()
-            if image == "" {
+            if plant.image == "" {
                 Image("plug_image")
                     .resizable()
                     .scaledToFill()
@@ -60,7 +63,7 @@ struct PlantsListSell: View {
                     .background(Color.gray)
                     .cornerRadius(15)
             } else {
-                AsyncImage(url: URL(string: image)) { image in
+                AsyncImage(url: URL(string: (plant.image!))) { image in
                     image
                         .resizable()
                         .frame(width: 80, height: 80)
@@ -77,13 +80,13 @@ struct PlantsListSell: View {
             Spacer()
             VStack() {
                 Spacer()
-                Text(title)
+                Text(plant.name)
                     .foregroundStyle(Color.white)
                     .font(.system(size: 20))
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
-                Text(id)
+                Text("\(plant.id)")
                     .foregroundStyle(Color.gray)
                     .font(.system(size: 15))
                     .bold()
@@ -92,13 +95,18 @@ struct PlantsListSell: View {
             }
             Spacer()
             Button(action: {
-                self.isPlaying.toggle()
+                if plant.isFavorite == true {
+                    onDeleteTapAction(plant.id)
+                }
+                else {
+                    onFavoriteTapAction(plant)
+                }
             }) {
-                Image(systemName: self.isPlaying == true ? "heart.circle.fill" : "heart.circle")
+                Image(systemName: plant.isFavorite == true ? "heart.circle.fill" : "heart.circle")
                     .resizable()
                     .frame(width: 50, height: 50)
                     .padding(.horizontal, 8)
-                    .foregroundStyle(self.isPlaying == true ? Color.lightGreen : Color.white)
+                    .foregroundStyle(plant.isFavorite == true ? Color.lightGreen : Color.white)
             }
             Spacer()
         }

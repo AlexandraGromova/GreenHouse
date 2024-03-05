@@ -17,6 +17,10 @@
 		D9135E522B768D3400CBD622 /* PlantsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9135E512B768D3400CBD622 /* PlantsRepository.swift */; };
 		D9135E542B768D4B00CBD622 /* LocalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9135E532B768D4B00CBD622 /* LocalSource.swift */; };
 		D9135E562B769B0400CBD622 /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9135E552B769B0400CBD622 /* AppContainer.swift */; };
+		D914CC402B8FBFC800D53B42 /* FavoriteListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D914CC3F2B8FBFC800D53B42 /* FavoriteListVM.swift */; };
+		D914CC422B8FBFE300D53B42 /* FavoriteListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D914CC412B8FBFE300D53B42 /* FavoriteListRepository.swift */; };
+		D914CC462B8FE35400D53B42 /* FavoritePlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D914CC452B8FE35400D53B42 /* FavoritePlant.swift */; };
+		D914CC4A2B92818400D53B42 /* TestScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D914CC492B92818400D53B42 /* TestScreen.swift */; };
 		D916A5512B84CC9100B0A92B /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A5502B84CC9100B0A92B /* Pagination.swift */; };
 		D916A5532B8CE89400B0A92B /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A5522B8CE89400B0A92B /* Extension.swift */; };
 		D95C8C1E2B73ECC3004C6929 /* GreenhouseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C8C1D2B73ECC3004C6929 /* GreenhouseApp.swift */; };
@@ -31,7 +35,9 @@
 		D95C8C4D2B75419F004C6929 /* FavoriteListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C8C4C2B75419F004C6929 /* FavoriteListScreen.swift */; };
 		D95C8C562B754C1A004C6929 /* RemouteSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C8C552B754C1A004C6929 /* RemouteSource.swift */; };
 		D95C8C5B2B754DF0004C6929 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D95C8C5A2B754DF0004C6929 /* Alamofire */; };
-		D95C8C5D2B755C4F004C6929 /* Plants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C8C5C2B755C4F004C6929 /* Plants.swift */; };
+		D95C8C5D2B755C4F004C6929 /* ApiPlants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C8C5C2B755C4F004C6929 /* ApiPlants.swift */; };
+		D9C131982B977B9500618DED /* UIPlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C131972B977B9500618DED /* UIPlant.swift */; };
+		D9C1319A2B97800D00618DED /* PlantDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C131992B97800D00618DED /* PlantDetailScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +65,10 @@
 		D9135E512B768D3400CBD622 /* PlantsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsRepository.swift; sourceTree = "<group>"; };
 		D9135E532B768D4B00CBD622 /* LocalSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSource.swift; sourceTree = "<group>"; };
 		D9135E552B769B0400CBD622 /* AppContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
+		D914CC3F2B8FBFC800D53B42 /* FavoriteListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListVM.swift; sourceTree = "<group>"; };
+		D914CC412B8FBFE300D53B42 /* FavoriteListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListRepository.swift; sourceTree = "<group>"; };
+		D914CC452B8FE35400D53B42 /* FavoritePlant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePlant.swift; sourceTree = "<group>"; };
+		D914CC492B92818400D53B42 /* TestScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestScreen.swift; sourceTree = "<group>"; };
 		D916A5502B84CC9100B0A92B /* Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pagination.swift; sourceTree = "<group>"; };
 		D916A5522B8CE89400B0A92B /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		D95C8C1A2B73ECC3004C6929 /* Greenhouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Greenhouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,7 +87,9 @@
 		D95C8C4C2B75419F004C6929 /* FavoriteListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListScreen.swift; sourceTree = "<group>"; };
 		D95C8C552B754C1A004C6929 /* RemouteSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemouteSource.swift; sourceTree = "<group>"; };
 		D95C8C572B754C7A004C6929 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		D95C8C5C2B755C4F004C6929 /* Plants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plants.swift; sourceTree = "<group>"; };
+		D95C8C5C2B755C4F004C6929 /* ApiPlants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiPlants.swift; sourceTree = "<group>"; };
+		D9C131972B977B9500618DED /* UIPlant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPlant.swift; sourceTree = "<group>"; };
+		D9C131992B97800D00618DED /* PlantDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantDetailScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,13 +162,8 @@
 			children = (
 				D95C8C572B754C7A004C6929 /* Info.plist */,
 				D95C8C1D2B73ECC3004C6929 /* GreenhouseApp.swift */,
-				D9091B162B76C60B00F0ADCF /* UseCase */,
 				D95C8C4E2B7543BD004C6929 /* UI */,
-				D95C8C532B754425004C6929 /* ViewModel */,
-				D95C8C542B754616004C6929 /* Repository */,
-				D95C8C512B7543F3004C6929 /* Model */,
-				D95C8C522B754407004C6929 /* DTO */,
-				D95C8C502B7543E6004C6929 /* DI */,
+				D9C131962B967B6700618DED /* Logic */,
 				D95C8C212B73ECC5004C6929 /* Assets.xcassets */,
 				D95C8C232B73ECC5004C6929 /* Greenhouse.entitlements */,
 				D95C8C242B73ECC5004C6929 /* Preview Content */,
@@ -195,6 +202,8 @@
 				D95C8C1F2B73ECC3004C6929 /* ContentView.swift */,
 				D95C8C4A2B754182004C6929 /* PlantsListScreen.swift */,
 				D95C8C482B740D01004C6929 /* MainScreen.swift */,
+				D9C131992B97800D00618DED /* PlantDetailScreen.swift */,
+				D914CC492B92818400D53B42 /* TestScreen.swift */,
 				D95C8C4C2B75419F004C6929 /* FavoriteListScreen.swift */,
 				D9091B252B7E6A1300F0ADCF /* Color.swift */,
 				D916A5522B8CE89400B0A92B /* Extension.swift */,
@@ -224,7 +233,9 @@
 			isa = PBXGroup;
 			children = (
 				D9091B1D2B7A47B600F0ADCF /* PlantLS.swift */,
-				D95C8C5C2B755C4F004C6929 /* Plants.swift */,
+				D9C131972B977B9500618DED /* UIPlant.swift */,
+				D914CC452B8FE35400D53B42 /* FavoritePlant.swift */,
+				D95C8C5C2B755C4F004C6929 /* ApiPlants.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -233,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				D9135E4F2B768D1700CBD622 /* PlantsListVM.swift */,
+				D914CC3F2B8FBFC800D53B42 /* FavoriteListVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -241,8 +253,22 @@
 			isa = PBXGroup;
 			children = (
 				D9135E512B768D3400CBD622 /* PlantsRepository.swift */,
+				D914CC412B8FBFE300D53B42 /* FavoriteListRepository.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		D9C131962B967B6700618DED /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				D95C8C532B754425004C6929 /* ViewModel */,
+				D9091B162B76C60B00F0ADCF /* UseCase */,
+				D95C8C542B754616004C6929 /* Repository */,
+				D95C8C512B7543F3004C6929 /* Model */,
+				D95C8C522B754407004C6929 /* DTO */,
+				D95C8C502B7543E6004C6929 /* DI */,
+			);
+			path = Logic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -389,7 +415,9 @@
 				D9091B1E2B7A47B600F0ADCF /* PlantLS.swift in Sources */,
 				D95C8C562B754C1A004C6929 /* RemouteSource.swift in Sources */,
 				D95C8C492B740D01004C6929 /* MainScreen.swift in Sources */,
-				D95C8C5D2B755C4F004C6929 /* Plants.swift in Sources */,
+				D95C8C5D2B755C4F004C6929 /* ApiPlants.swift in Sources */,
+				D9C1319A2B97800D00618DED /* PlantDetailScreen.swift in Sources */,
+				D9C131982B977B9500618DED /* UIPlant.swift in Sources */,
 				D9135E522B768D3400CBD622 /* PlantsRepository.swift in Sources */,
 				D9091B192B76C63100F0ADCF /* GetPlantsUC.swift in Sources */,
 				D95C8C202B73ECC3004C6929 /* ContentView.swift in Sources */,
@@ -402,6 +430,10 @@
 				D9135E502B768D1700CBD622 /* PlantsListVM.swift in Sources */,
 				D916A5512B84CC9100B0A92B /* Pagination.swift in Sources */,
 				D95C8C4D2B75419F004C6929 /* FavoriteListScreen.swift in Sources */,
+				D914CC462B8FE35400D53B42 /* FavoritePlant.swift in Sources */,
+				D914CC402B8FBFC800D53B42 /* FavoriteListVM.swift in Sources */,
+				D914CC422B8FBFE300D53B42 /* FavoriteListRepository.swift in Sources */,
+				D914CC4A2B92818400D53B42 /* TestScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
