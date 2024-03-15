@@ -38,6 +38,8 @@
 		D95C8C5D2B755C4F004C6929 /* ApiPlants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C8C5C2B755C4F004C6929 /* ApiPlants.swift */; };
 		D9C131982B977B9500618DED /* UIPlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C131972B977B9500618DED /* UIPlant.swift */; };
 		D9C1319A2B97800D00618DED /* PlantDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C131992B97800D00618DED /* PlantDetailScreen.swift */; };
+		D9C1319C2B9FCAD000618DED /* SearchPlantsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C1319B2B9FCAD000618DED /* SearchPlantsRepository.swift */; };
+		D9C1319E2B9FCC1700618DED /* GetSearchPlantsUC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C1319D2B9FCC1700618DED /* GetSearchPlantsUC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +92,8 @@
 		D95C8C5C2B755C4F004C6929 /* ApiPlants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiPlants.swift; sourceTree = "<group>"; };
 		D9C131972B977B9500618DED /* UIPlant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPlant.swift; sourceTree = "<group>"; };
 		D9C131992B97800D00618DED /* PlantDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantDetailScreen.swift; sourceTree = "<group>"; };
+		D9C1319B2B9FCAD000618DED /* SearchPlantsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlantsRepository.swift; sourceTree = "<group>"; };
+		D9C1319D2B9FCC1700618DED /* GetSearchPlantsUC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSearchPlantsUC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				D9091B182B76C63100F0ADCF /* GetPlantsUC.swift */,
+				D9C1319D2B9FCC1700618DED /* GetSearchPlantsUC.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -253,6 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				D9135E512B768D3400CBD622 /* PlantsRepository.swift */,
+				D9C1319B2B9FCAD000618DED /* SearchPlantsRepository.swift */,
 				D914CC412B8FBFE300D53B42 /* FavoriteListRepository.swift */,
 			);
 			path = Repository;
@@ -426,9 +432,11 @@
 				D9135E562B769B0400CBD622 /* AppContainer.swift in Sources */,
 				D9091B262B7E6A1300F0ADCF /* Color.swift in Sources */,
 				D9135E542B768D4B00CBD622 /* LocalSource.swift in Sources */,
+				D9C1319C2B9FCAD000618DED /* SearchPlantsRepository.swift in Sources */,
 				D95C8C4B2B754182004C6929 /* PlantsListScreen.swift in Sources */,
 				D9135E502B768D1700CBD622 /* PlantsListVM.swift in Sources */,
 				D916A5512B84CC9100B0A92B /* Pagination.swift in Sources */,
+				D9C1319E2B9FCC1700618DED /* GetSearchPlantsUC.swift in Sources */,
 				D95C8C4D2B75419F004C6929 /* FavoriteListScreen.swift in Sources */,
 				D914CC462B8FE35400D53B42 /* FavoritePlant.swift in Sources */,
 				D914CC402B8FBFC800D53B42 /* FavoriteListVM.swift in Sources */,

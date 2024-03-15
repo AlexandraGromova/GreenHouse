@@ -35,14 +35,7 @@ class LocalSource {
             .eraseToAnyPublisher()
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
+    //----------Favorites----------//
     
     func savePlantInFav(plant: PlantLS) {
         DispatchQueue.main.async {

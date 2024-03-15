@@ -4,9 +4,10 @@ struct MainScreen: View {
     
     @State var selectedPage = 2
     
+//    var plant = UIPlant(id: 13, name: "GJi encnv", image: "")
+    
     var body: some View {
         NavigationView {
-//                        PlantDetailScreen()
             TabView(selection: $selectedPage) {
                 FavoriteListScreen()
                     .tabItem {

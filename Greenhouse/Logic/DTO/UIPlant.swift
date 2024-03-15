@@ -6,7 +6,3 @@ struct UIPlant: Hashable {
     var image: String?
     var isFavorite: Bool = false
 }
-
-//struct UIDefaultImage: Codable, Hashable {
-//    var small_url: String?
-//}

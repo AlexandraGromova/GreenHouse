@@ -6,8 +6,6 @@ class GetPlantsUC {
     private let plantsRepository: PlantsRepository
     private let pagination: Pagination
     
-    private var cancellables = Set<AnyCancellable>()
-    
     init(plantsRepository: PlantsRepository, pagination: Pagination) {
         self.plantsRepository = plantsRepository
         self.pagination = pagination

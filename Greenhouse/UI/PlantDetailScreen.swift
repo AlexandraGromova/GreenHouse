@@ -11,39 +11,46 @@ struct PlantDetailScreen: View {
     
     var body: some View {
         VStack {
-            if plant.image == "" {
-                Image("plug_image")
-                    .resizable()
-                    .scaledToFit()
+            ZStack {
+                Rectangle()
+                    .foregroundStyle(Color.lightGreen)
                     .frame(width: UIScreen.screenWidth, height: UIScreen.screenHeight / 2)
-                    .background(Color.lightGreen)
                     .clipShape(
                         .rect(
                             bottomLeadingRadius: 50,
                             bottomTrailingRadius: 50
                         )
                     )
-            } else {
-                AsyncImage(url: URL(string: (plant.image!))) { image in
-                    image
+                
+                if plant.image == "" {
+                    Image("plug_image")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: UIScreen.screenWidth, height: UIScreen.screenHeight / 2)
-                        .background(Color.lightGreen)
+                        .frame(width: .infinity)
                         .clipShape(
                             .rect(
                                 bottomLeadingRadius: 50,
                                 bottomTrailingRadius: 50
                             )
                         )
-                } placeholder: {
-                    ProgressView()
+                } else {
+                    AsyncImage(url: URL(string: (plant.image!))) { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .clipShape(
+                                .rect(
+                                    bottomLeadingRadius: 45,
+                                    bottomTrailingRadius: 45
+                                )
+                            )
+                            .frame(width: UIScreen.screenWidth - 40, height: UIScreen.screenHeight / 2 - 40)
+                        
+                    } placeholder: {
+                        ProgressView()
+                    }
                 }
-                .frame(width: UIScreen.screenWidth, height: UIScreen.screenHeight / 2)
             }
-            
-            
-            
             Text(plant.name)
                 .foregroundStyle(Color.black)
                 .font(.system(size: 40))

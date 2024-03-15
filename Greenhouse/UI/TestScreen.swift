@@ -3,29 +3,76 @@ import SwiftUI
 
 struct TestScreen: View {
     
-    @State private var didLongPress: Bool = false
-    @State private var height: CGFloat = 100
-    @State private var width: CGFloat = 100
+    @State private var showAlert = false
     
     var body: some View {
-        Image("plug_image")
-            .resizable()
-            .frame(width: width, height: height)
-            .animation(.default)
-            .background(Color.gray)
-            .cornerRadius(15)
-        
-            .gesture(
-                LongPressGesture()
-                    .onEnded({ _ in
-                        if self.didLongPress == false {
-                            self.width = 150
-                            self.height  = 150
-                        } else if self.didLongPress == true {
-                            self.width = 100
-                            self.height  = 100
-                        }
-                        self.didLongPress.toggle()
-                    }))
+        ZStack {
+            List(1...10, id: \.self) { i in
+                Text("Row \(i)")
+                }
+//            VStack {
+//                TestButton(
+//                    primaryButton: ExplandableButtonItem(label: Image(systemName: "heart")), secondaryButtons: [
+//                        ExplandableButtonItem(label: Image(systemName: "heart.fill")) {
+//                        }
+//                        ,
+//                        ExplandableButtonItem(label: Image(systemName: "heart.circle")){
+//                        }
+//                    ]
+//                )
+//                Spacer()
+//            }
+        }
     }
 }
+
+#Preview {
+    MainScreen()
+}
+//
+//
+//
+//
+//struct TestButton: View {
+//    @State private var isExplanded = false
+//    
+//    let primaryButton: ExplandableButtonItem
+//    let secondaryButtons: [ExplandableButtonItem]
+//    
+//    var body: some View {
+//        VStack {
+//            if isExplanded {
+//                ForEach(secondaryButtons) { button in
+//                    Button(action: { button.action?()
+//                    }, label: {
+//                        Text(button.label)
+//                    })
+//                    .font(.system(size: 15))
+//                    .foregroundStyle(Color.white)
+//                    .frame(width: 90, height: 30)
+//                    .clipShape(RoundedRectangle(cornerSize: .init(width: 10, height: 10)))
+//                }
+//            }
+//            Button(action: {
+//                withAnimation {
+//                    self.isExplanded.toggle()
+//                }
+//                self.primaryButton.action?()
+//            }, label: {
+//                Text(self.primaryButton.label)
+//            })
+//            .font(.system(size: 15))
+//            .foregroundStyle(Color.white)
+//            .frame(width: 90, height: 30)
+//            .clipShape(RoundedRectangle(cornerSize: .init(width: 10, height: 10)))
+//        }
+//        .background(Color.lightGreen)
+//        .cornerRadius(32)
+//    }
+//}
+//
+//struct ExplandableButtonItem: Identifiable {
+//    var id = UUID()
+//    let label: String
+//    var action: (() -> Void)? = nil
+//}

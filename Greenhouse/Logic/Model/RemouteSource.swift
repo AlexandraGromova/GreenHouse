@@ -27,6 +27,36 @@ class RemouteSource {
         return response
     }
     
+    func getSearchResponsePlants(currentPage: Int, watering: String, sunlight: String) async -> Result<ResponsePlants, HttpError> {
+        let url = "https://perenual.com/api/species-list?key=sk-IArD65c38bf2323734066&indoor=1&page=\(currentPage)&watering=\(watering)&sunlight=\(sunlight)"
+        
+        print("url = \(url)")
+        let response = await AF.request(url, interceptor: .retryPolicy)
+            .validate()
+            .serializingDecodable(ResponsePlants.self)
+            .response.mapError { error in
+                print("test \(error)")
+                let customError = switch error {
+                case .sessionTaskFailed(_):
+                    HttpError.noInternet
+                case .responseValidationFailed(_):
+                    HttpError.serverError
+                case .responseSerializationFailed(_):
+                    HttpError.incorrectJSON
+                default:
+                    HttpError.unknowError
+                }
+                return customError
+            }
+            .result
+        return response
+    }
+    
+    
+    
+    
+    
+    
 }
 
 enum HttpError: Error {
