@@ -18,7 +18,6 @@ class PlantsRepository {
         case .success(let value):
             self.localSource.savePlants(list: value.data)
         case .failure(let error):
-            print("testResult error \(error)")
             return error
         }
         return nil

@@ -3,12 +3,17 @@ import Combine
 
 class PlantsListVM: ObservableObject {
     
+    @Published var plants: [UIPlant] = []
+    @Published var hasError = true
+    @Published var isSearchMode = false
+    var i = 0
+    
+    @Published private var remotePlants: [UIPlant] = []
+    
     private let favoriteRepository: FavoriteListRepository //todo
     private let getPlantsUC: GetPlantsUC
     private let getSearchPlantsUC: GetSearchPlantsUC
     private let pagination: Pagination
-    @Published var plants: [UIPlant] = []
-    @Published var hasError = true
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -17,8 +22,36 @@ class PlantsListVM: ObservableObject {
         self.getSearchPlantsUC = getSearchPlantsUC
         self.favoriteRepository = favoriteRepository
         self.pagination = pagination
-        tryUpdatePlants()
+        tryUpdatePlants() 
         getPlants()
+        $remotePlants
+            .receive(on: DispatchQueue.main)
+            .sink { value in
+            }
+            .store(in: &cancellables)
+        favoriteRepository.getPlants()
+            .receive(on: DispatchQueue.main)
+            .sink { value in
+            }
+            .store(in: &cancellables)
+        getRemotePlants()
+    }
+    
+    private func getRemotePlants() {
+        return $remotePlants
+            .combineLatest(favoriteRepository.getPlants()) { plants, favPlants in
+                var result: [UIPlant] = []
+                for item in plants {
+                    var plant = item
+                    if favPlants.contains(where: {$0.id == item.id}) {
+                        plant.isFavorite = true
+                    }
+                    result.append(plant)
+                }
+                return result
+            }
+            .assign(to: &$plants)
+        
     }
     
     func savePlant(plant: UIPlant) {
@@ -29,18 +62,28 @@ class PlantsListVM: ObservableObject {
         favoriteRepository.deletePlant(plantID: plantID)
     }
     
-    func getSearchPlants() {
+    func getSearchPlants(watering: String, sunlight: String) {
+        //todo если изменился фильтр обнули список
+        isSearchMode = true
+        if isSearchMode == true && i == 0 {
+            DispatchQueue.main.async {
+                self.plants = []
+            }
+            i+=1
+        }
         Task {
-            await getSearchPlantsUC.execute()
-                .receive(on: DispatchQueue.main)
-                .sink { value in
+            var result = await getSearchPlantsUC.execute(watering: watering, sunlight: sunlight)
+            switch result {
+            case .success(let value):
+                DispatchQueue.main.async {
                     var buferList: [UIPlant] = []
-                    self.plants = []
-                    buferList = self.plants
+                    buferList = self.remotePlants
                     buferList.append(contentsOf: value)
-                    self.plants = buferList
+                    self.remotePlants = buferList
                 }
-                .store(in: &cancellables)
+            case .failure(let error):
+                print("testResult error \(error)")
+            }
         }
     }
     

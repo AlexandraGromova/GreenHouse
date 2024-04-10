@@ -19,8 +19,6 @@ class FavoriteListVM: ObservableObject {
         repository.getPlants()
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {completion in
-                print(completion)
-                
             }, receiveValue: {value in
                 var bufferList: [UIPlant] = []
                 bufferList = value
@@ -29,7 +27,6 @@ class FavoriteListVM: ObservableObject {
                 }
             })
             .store(in: &cancellables)
-            
     }
     
     func saveFavoritePlant(plant: PlantLS) {

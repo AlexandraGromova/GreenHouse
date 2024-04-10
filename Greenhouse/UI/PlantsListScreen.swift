@@ -5,6 +5,7 @@ struct PlantsListScreen: View {
     
     @StateObject var vm = AppContainer.resolve(PlantsListVM.self)
     
+    @State var isSearchMode = true
     
     var body: some View {
         ZStack() {
@@ -16,7 +17,7 @@ struct PlantsListScreen: View {
                             NavigationLink(destination: PlantDetailScreen(plant: plant)) {
                                 PlantsListSell(plant: plant) { plant in
                                     vm.savePlant(plant: plant)
-                                } onDeleteTapAction: { id in
+                                } onDeleteTapAction: { id in 
                                     vm.deletePlant(plantID: id)
                                 }
                                 .background(Color.lightGray)
@@ -24,10 +25,17 @@ struct PlantsListScreen: View {
                                 .padding(.vertical, 5)
                                 .onAppear() {
                                     if vm.plants.count - 4 == index {
-                                        vm.tryUpdatePlants()
+                                        if isSearchMode {
+                                            vm.getSearchPlants(watering: "average", sunlight: "full_sun")
+                                        } else { vm.tryUpdatePlants()}
                                     }
                                 }
                             }
+                        }.onAppear {
+                            print("onAppear_ForEach")
+                        }
+                        .onDisappear() {
+                            print("onDisappear_ForEach")
                         }
                     }
                 }
@@ -46,10 +54,19 @@ struct PlantsListScreen: View {
             VStack() {
                 Spacer()
                     .frame(height: 0)
-                SearchBarView(onSearchTapAction: vm.getSearchPlants)
+                SearchBarView() { watering, sunlight in
+                    print("\(watering), \(sunlight)")
+                    //очисть список
+                    vm.getSearchPlants(watering: watering , sunlight: sunlight)
+                }
                 Spacer()
                 
             }
+        }.onAppear {
+            print("onAppear")
+        }
+        .onDisappear() {
+            print("onDisappear")
         }
     }
 }
@@ -119,6 +136,8 @@ struct PlantsListSell: View {
                     .padding(.horizontal, 8)
                     .foregroundStyle(plant.isFavorite == true ? Color.lightGreen : Color.white)
             }
+            
+            .background(Color.red)
             Spacer()
         }
         .frame(width: UIScreen.screenWidth - 40, height: 100 )
@@ -127,9 +146,9 @@ struct PlantsListSell: View {
 
 struct SearchBarView: View {
     
-    var onSearchTapAction: () -> ()
-    let sunlight = ["full_shade", "part_shade", "sun-part_shade", "full_sun", ""]
-    let watering = ["frequent", "average", "minimum", ""]
+    var onSearchTapAction: (String, String) -> ()
+    let sunlight = ["full_shade", "part_shade", "sun-part_shade", "full_sun", "all"]
+    let watering = ["frequent", "average", "minimum", "all"]
     @State var paramsSunlight = "all"
     @State var paramsWatering = "all"
     
@@ -144,15 +163,12 @@ struct SearchBarView: View {
                 .padding(.vertical, 4)
                 .padding(.horizontal, 10)
             ParametersButton(
-                primaryButton: ExplandableButtonItem(label: paramsSunlight), secondaryButtons: [
-                    ExplandableButtonItem(label: "full_shade") {
-                        paramsSunlight = "full_shade"
+                primaryButton: ExplandableButtonItem(label: paramsSunlight),
+                secondaryButtons: sunlight.map { label in
+                    ExplandableButtonItem(label: label) {
+                        paramsSunlight = label
                     }
-                    ,
-                    ExplandableButtonItem(label: "part_shade") {
-                        paramsSunlight = "part_shade"
-                    }
-                ]
+                }
             )
             Spacer()
             Image(systemName: "drop.circle.fill")
@@ -163,19 +179,16 @@ struct SearchBarView: View {
                 .padding(.vertical, 4)
                 .padding(.horizontal, 10)
             ParametersButton(
-                primaryButton: ExplandableButtonItem(label: paramsWatering), secondaryButtons: [
-                    ExplandableButtonItem(label: "frequent") {
-                        paramsWatering = "frequent"
+                primaryButton: ExplandableButtonItem(label: paramsWatering),
+                secondaryButtons: watering.map { label in
+                    ExplandableButtonItem(label: label) {
+                        paramsWatering = label
                     }
-                    ,
-                    ExplandableButtonItem(label: "average") {
-                        paramsWatering = "average"
-                    }
-                ]
+                }
             )
             Spacer()
             Button(action: {
-                onSearchTapAction()
+                onSearchTapAction(paramsWatering, paramsSunlight)
             }, label: {
                 Image(systemName: "magnifyingglass.circle.fill")
                     .resizable()
@@ -220,9 +233,9 @@ struct ParametersButton: View {
             }, label: {
                 Text(self.primaryButton.label)
             })
-            .font(.system(size: 15))
+            .font(.system(size: 15).bold())
             .foregroundStyle(Color.white)
-            .frame(width: 90, height: 30)
+            .frame(width: 100, height: 30)
             .clipShape(RoundedRectangle(cornerSize: .init(width: 10, height: 10)))
         }
         .background(Color.lightGreen)
