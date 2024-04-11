@@ -44,7 +44,7 @@ class PlantsRepository {
         let response = await self.remouteSource.getResponsePlants(currentPage: 1)
         switch response {
         case .success(let value):
-            return value.total
+            return value.last_page
         case .failure(_):
             return 0
         }

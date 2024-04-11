@@ -3,7 +3,6 @@ import Alamofire
 
 class RemouteSource {
     
-    var i = 0
     let key = "sk-3uSe660c99e04ad6d4973"
     
     func getResponsePlants(currentPage: Int) async -> Result<ResponsePlants, HttpError> {
@@ -32,8 +31,6 @@ class RemouteSource {
     
     func getSearchResponsePlants(currentPage: Int, watering: String, sunlight: String) async -> Result<ResponsePlants, HttpError> {
             let url = "https://perenual.com/api/species-list?key=\(key)&indoor=1&page=\(currentPage)&watering=\(watering)&sunlight=\(sunlight)"
-            i = i+1
-        print("i = \(i)")
             print("url = \(url)")
             let response = await AF.request(url, interceptor: .retryPolicy)
                 .validate()
@@ -54,6 +51,30 @@ class RemouteSource {
                 }
                 .result
             return response
+    }
+    
+    func getDetailPlant(id: Int) async -> Result<APIPlant, HttpError> {
+        let url = "https://perenual.com/api/species/details/\(id)?key=\(key)"
+        print("url = \(url)")
+        let response = await AF.request(url, interceptor: .retryPolicy)
+            .validate()
+            .serializingDecodable(APIPlant.self)
+            .response.mapError { error in
+                print("test \(error)")
+                let customError = switch error {
+                case .sessionTaskFailed(_):
+                    HttpError.noInternet
+                case .responseValidationFailed(_):
+                    HttpError.serverError
+                case .responseSerializationFailed(_):
+                    HttpError.incorrectJSON
+                default:
+                    HttpError.unknowError
+                }
+                return customError
+            }
+            .result
+        return response
     }
 }
 

@@ -6,11 +6,11 @@ class PlantsListVM: ObservableObject {
     @Published var plants: [UIPlant] = []
     @Published var hasError = true
     @Published var isSearchMode = false
-    var i = 0
+    @Published var searchParams : SearchParameters = SearchParameters(watering: "", sunlight: "")
     
     @Published private var remotePlants: [UIPlant] = []
     
-    private let favoriteRepository: FavoriteListRepository //todo
+    private let favoriteRepository: FavoriteListRepository //todo delete
     private let getPlantsUC: GetPlantsUC
     private let getSearchPlantsUC: GetSearchPlantsUC
     private let pagination: Pagination
@@ -22,7 +22,17 @@ class PlantsListVM: ObservableObject {
         self.getSearchPlantsUC = getSearchPlantsUC
         self.favoriteRepository = favoriteRepository
         self.pagination = pagination
-        tryUpdatePlants() 
+        $isSearchMode
+            .receive(on: DispatchQueue.main)
+            .sink { value in
+                if value == true {
+                    self.plants = []
+                    getSearchPlantsUC.updateValuePage()
+                    self.getSearchPlants(watering: self.searchParams.watering, sunlight: self.searchParams.sunlight)
+                }
+            }
+            .store(in: &cancellables)
+        tryUpdatePlants()
         getPlants()
         $remotePlants
             .receive(on: DispatchQueue.main)
@@ -63,16 +73,8 @@ class PlantsListVM: ObservableObject {
     }
     
     func getSearchPlants(watering: String, sunlight: String) {
-        //todo если изменился фильтр обнули список
-        isSearchMode = true
-        if isSearchMode == true && i == 0 {
-            DispatchQueue.main.async {
-                self.plants = []
-            }
-            i+=1
-        }
         Task {
-            var result = await getSearchPlantsUC.execute(watering: watering, sunlight: sunlight)
+            let result = await getSearchPlantsUC.execute(watering: watering, sunlight: sunlight)
             switch result {
             case .success(let value):
                 DispatchQueue.main.async {
@@ -91,11 +93,12 @@ class PlantsListVM: ObservableObject {
         getPlantsUC.execute()
             .receive(on: DispatchQueue.main)
             .sink { value in
-                var buferList: [UIPlant] = []
-                self.plants = []
-                buferList = self.plants
-                buferList.append(contentsOf: value)
-                self.plants = buferList
+                if !self.isSearchMode {
+                    var buferList: [UIPlant] = []
+                    self.plants = []
+                    buferList = value
+                    self.plants = buferList
+                }
             }
             .store(in: &cancellables)
     }

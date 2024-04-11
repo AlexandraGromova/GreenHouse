@@ -12,12 +12,20 @@ class GetSearchPlantsUC {
     }
     
     func execute(watering: String, sunlight: String) async -> Result<[UIPlant], HttpError> {
-        print("test_page \(pagination.page)")
-        let result = await plantsRepository.getResponsePlants(currentPage: pagination.getNewValuesSearchPage(), watering: watering, sunlight: sunlight).flatMap { responsePlants in
+        //fix lastpage
+        let result = await plantsRepository.getResponsePlants(currentPage: pagination.getNewValuesPage(), watering: watering, sunlight: sunlight).flatMap { responsePlants in
                 .success(responsePlants.data.map { plant in
                     UIPlant(id: plant.id, name: plant.common_name, image: plant.default_image?.small_url, isFavorite: false)
                 })
         }
         return result
     }
+    
+    
+    func updateValuePage() {
+        pagination.updateValuePage()
+        pagination.getSearchTotalPages()
+    }
+    
+    
 }

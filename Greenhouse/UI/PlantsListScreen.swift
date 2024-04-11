@@ -5,7 +5,8 @@ struct PlantsListScreen: View {
     
     @StateObject var vm = AppContainer.resolve(PlantsListVM.self)
     
-    @State var isSearchMode = true
+    @State var isSearchMode = false
+    @State var searchParams: SearchParameters = SearchParameters(watering: "", sunlight: "")
     
     var body: some View {
         ZStack() {
@@ -54,10 +55,9 @@ struct PlantsListScreen: View {
             VStack() {
                 Spacer()
                     .frame(height: 0)
-                SearchBarView() { watering, sunlight in
-                    print("\(watering), \(sunlight)")
-                    //очисть список
-                    vm.getSearchPlants(watering: watering , sunlight: sunlight)
+                SearchBarView(params: $vm.searchParams) {_ in 
+                    vm.isSearchMode = true
+                    isSearchMode = true
                 }
                 Spacer()
                 
@@ -136,17 +136,20 @@ struct PlantsListSell: View {
                     .padding(.horizontal, 8)
                     .foregroundStyle(plant.isFavorite == true ? Color.lightGreen : Color.white)
             }
-            
-            .background(Color.red)
             Spacer()
         }
         .frame(width: UIScreen.screenWidth - 40, height: 100 )
     }
 }
 
+struct SearchParameters {
+    var watering: String
+    var sunlight: String
+}
+
 struct SearchBarView: View {
-    
-    var onSearchTapAction: (String, String) -> ()
+    @Binding var params: SearchParameters
+    var onSearchTapAction: (SearchParameters) -> ()
     let sunlight = ["full_shade", "part_shade", "sun-part_shade", "full_sun", "all"]
     let watering = ["frequent", "average", "minimum", "all"]
     @State var paramsSunlight = "all"
@@ -188,7 +191,8 @@ struct SearchBarView: View {
             )
             Spacer()
             Button(action: {
-                onSearchTapAction(paramsWatering, paramsSunlight)
+                params = SearchParameters(watering: paramsWatering, sunlight: paramsSunlight)
+                onSearchTapAction(params)
             }, label: {
                 Image(systemName: "magnifyingglass.circle.fill")
                     .resizable()

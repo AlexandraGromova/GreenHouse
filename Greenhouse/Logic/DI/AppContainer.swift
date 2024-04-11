@@ -13,7 +13,7 @@ class AppContainer {
             LocalSource()
         }.inObjectScope(.container)
         container.register(Pagination.self) { r in
-            Pagination(repository: r.resolve(PlantsRepository.self)!)
+            Pagination(repository: r.resolve(PlantsRepository.self)!, searchRepository: r.resolve(SearchPlantsRepository.self)!)
         }
         container.register(PlantsRepository.self) { r in
             PlantsRepository(remouteSource: r.resolve(RemouteSource.self)!, localSource: r.resolve(LocalSource.self)!)
