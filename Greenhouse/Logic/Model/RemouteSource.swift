@@ -53,7 +53,7 @@ class RemouteSource {
             return response
     }
     
-    func getDetailPlant(id: Int) async -> Result<APIPlant, HttpError> {
+    func getPlantDetails(id: Int) async -> Result<APIPlant, HttpError> {
         let url = "https://perenual.com/api/species/details/\(id)?key=\(key)"
         print("url = \(url)")
         let response = await AF.request(url, interceptor: .retryPolicy)

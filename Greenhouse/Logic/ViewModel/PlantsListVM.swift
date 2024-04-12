@@ -4,6 +4,7 @@ import Combine
 class PlantsListVM: ObservableObject {
     
     @Published var plants: [UIPlant] = []
+    @Published var plant: UIPlant = UIPlant(id: 0, name: "")
     @Published var hasError = true
     @Published var isSearchMode = false
     @Published var searchParams : SearchParameters = SearchParameters(watering: "", sunlight: "")
@@ -13,15 +14,18 @@ class PlantsListVM: ObservableObject {
     private let favoriteRepository: FavoriteListRepository //todo delete
     private let getPlantsUC: GetPlantsUC
     private let getSearchPlantsUC: GetSearchPlantsUC
+    private let getPlantDetailsUC: GetPlantDetailsUC
     private let pagination: Pagination
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(getPlantsUC: GetPlantsUC, getSearchPlantsUC: GetSearchPlantsUC, pagination: Pagination, favoriteRepository: FavoriteListRepository) {
+    init(getPlantsUC: GetPlantsUC, getSearchPlantsUC: GetSearchPlantsUC, pagination: Pagination, favoriteRepository: FavoriteListRepository, getPlantDetailsUC: GetPlantDetailsUC) {
         self.getPlantsUC = getPlantsUC
         self.getSearchPlantsUC = getSearchPlantsUC
         self.favoriteRepository = favoriteRepository
+        self.getPlantDetailsUC = getPlantDetailsUC
         self.pagination = pagination
+        getPublisherPlantDetails()
         $isSearchMode
             .receive(on: DispatchQueue.main)
             .sink { value in
@@ -47,23 +51,7 @@ class PlantsListVM: ObservableObject {
         getRemotePlants()
     }
     
-    private func getRemotePlants() {
-        return $remotePlants
-            .combineLatest(favoriteRepository.getPlants()) { plants, favPlants in
-                var result: [UIPlant] = []
-                for item in plants {
-                    var plant = item
-                    if favPlants.contains(where: {$0.id == item.id}) {
-                        plant.isFavorite = true
-                    }
-                    result.append(plant)
-                }
-                return result
-            }
-            .assign(to: &$plants)
-        
-    }
-    
+    // ------ fav plants ----- //
     func savePlant(plant: UIPlant) {
         favoriteRepository.savePlant(plant: PlantLS(id: plant.id, common_name: plant.name, image: plant.image ?? ""))
     }
@@ -71,7 +59,7 @@ class PlantsListVM: ObservableObject {
     func deletePlant(plantID: Int) {
         favoriteRepository.deletePlant(plantID: plantID)
     }
-    
+    // ----- search plants ------ //
     func getSearchPlants(watering: String, sunlight: String) {
         Task {
             let result = await getSearchPlantsUC.execute(watering: watering, sunlight: sunlight)
@@ -89,6 +77,23 @@ class PlantsListVM: ObservableObject {
         }
     }
     
+    private func getRemotePlants() {
+        return $remotePlants
+            .combineLatest(favoriteRepository.getPlants()) { plants, favPlants in
+                var result: [UIPlant] = []
+                for item in plants {
+                    var plant = item
+                    if favPlants.contains(where: {$0.id == item.id}) {
+                        plant.isFavorite = true
+                    }
+                    result.append(plant)
+                }
+                return result
+            }
+            .assign(to: &$plants)
+        
+    }
+    // ------ all plants ------ //
     func getPlants() {
         getPlantsUC.execute()
             .receive(on: DispatchQueue.main)
@@ -108,6 +113,32 @@ class PlantsListVM: ObservableObject {
             let bufferValue = await getPlantsUC.tryUpdatePlants()
             DispatchQueue.main.async {
                 self.hasError = bufferValue
+            }
+        }
+    }
+    
+    // ------ plant details ------ //
+    
+    func getPublisherPlantDetails() {
+        $plant.receive(on: DispatchQueue.main)
+            .sink { value in
+                print("value \(value)")
+            }
+            .store(in: &cancellables)
+    }
+    
+    func getPlantDetails(id: Int) {
+        Task {
+            let result = await self.getPlantDetailsUC.getPlantDetails(id: id)
+            switch result {
+            case .success(let value):
+                DispatchQueue.main.async {
+                    let bufferList = value
+                    print("success")
+                    self.plant = bufferList
+                }
+            case .failure(let error):
+                print("testResult error \(error)")
             }
         }
     }

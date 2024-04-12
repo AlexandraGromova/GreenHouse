@@ -15,10 +15,10 @@ struct PlantsListScreen: View {
                 ScrollView(showsIndicators: false) {
                     LazyVStack {
                         ForEach(Array(vm.plants.enumerated()), id: \.element) { index, plant in
-                            NavigationLink(destination: PlantDetailScreen(plant: plant)) {
+                            NavigationLink(value: index) {
                                 PlantsListSell(plant: plant) { plant in
                                     vm.savePlant(plant: plant)
-                                } onDeleteTapAction: { id in 
+                                } onDeleteTapAction: { id in
                                     vm.deletePlant(plantID: id)
                                 }
                                 .background(Color.lightGray)
@@ -31,12 +31,12 @@ struct PlantsListScreen: View {
                                         } else { vm.tryUpdatePlants()}
                                     }
                                 }
+                                .onTapGesture {
+                                    vm.getPlantDetails(id: plant.id)
+                                }
+                            }.navigationDestination(for: Int.self) { _ in
+                               
                             }
-                        }.onAppear {
-                            print("onAppear_ForEach")
-                        }
-                        .onDisappear() {
-                            print("onDisappear_ForEach")
                         }
                     }
                 }
@@ -140,11 +140,6 @@ struct PlantsListSell: View {
         }
         .frame(width: UIScreen.screenWidth - 40, height: 100 )
     }
-}
-
-struct SearchParameters {
-    var watering: String
-    var sunlight: String
 }
 
 struct SearchBarView: View {
@@ -253,6 +248,10 @@ struct ExplandableButtonItem: Identifiable {
     var action: (() -> Void)? = nil
 }
 
+struct SearchParameters {
+    var watering: String
+    var sunlight: String
+}
 
 
 
