@@ -19,9 +19,13 @@ struct DefaultImage: Codable, Hashable {
 struct APIDetailPlant: Codable, Hashable {
     var id: Int
     var common_name: String
+    var origin: [String]?
+    var dimension: String?
+    var cycle: String?
+    var watering: String?
+    var sunlight: [String]?
+    var care_level: String?
+    var medicinal: Bool?
     var default_image: DefaultImage?
-    var scientific_name: [String]?
-    var family: String?
-    
 }
 

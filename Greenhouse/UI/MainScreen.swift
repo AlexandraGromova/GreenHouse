@@ -5,7 +5,7 @@ struct MainScreen: View {
     @State var selectedPage = 2
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             TabView(selection: $selectedPage) {
                 FavoriteListScreen()
                     .tabItem {

@@ -4,7 +4,7 @@ import Combine
 class PlantsListVM: ObservableObject {
     
     @Published var plants: [UIPlant] = []
-    @Published var plant: UIPlant = UIPlant(id: 0, name: "")
+    @Published var plantDetails: UIPlant?
     @Published var hasError = true
     @Published var isSearchMode = false
     @Published var searchParams : SearchParameters = SearchParameters(watering: "", sunlight: "")
@@ -25,7 +25,6 @@ class PlantsListVM: ObservableObject {
         self.favoriteRepository = favoriteRepository
         self.getPlantDetailsUC = getPlantDetailsUC
         self.pagination = pagination
-        getPublisherPlantDetails()
         $isSearchMode
             .receive(on: DispatchQueue.main)
             .sink { value in
@@ -118,24 +117,13 @@ class PlantsListVM: ObservableObject {
     }
     
     // ------ plant details ------ //
-    
-    func getPublisherPlantDetails() {
-        $plant.receive(on: DispatchQueue.main)
-            .sink { value in
-                print("value \(value)")
-            }
-            .store(in: &cancellables)
-    }
-    
     func getPlantDetails(id: Int) {
         Task {
             let result = await self.getPlantDetailsUC.getPlantDetails(id: id)
             switch result {
             case .success(let value):
                 DispatchQueue.main.async {
-                    let bufferList = value
-                    print("success")
-                    self.plant = bufferList
+                    self.plantDetails = value
                 }
             case .failure(let error):
                 print("testResult error \(error)")

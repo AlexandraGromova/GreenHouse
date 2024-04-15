@@ -17,7 +17,6 @@ class PlantLS: Object {
 
 class DefaultImageLS: Object {
     @Persisted var small_url: String? = nil
-    
     convenience init(small_url: String?) {
         self.init()
         self.small_url = small_url

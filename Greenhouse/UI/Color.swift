@@ -8,4 +8,7 @@ extension Color {
     public static var lightGreen: Color {
         return Color(UIColor(red: 152/255, green: 187/255, blue: 195/255, alpha: 1.0))
     }
+    public static var darkGreen: Color {
+        return Color(UIColor(red: 110/255, green: 149/255, blue: 178/255, alpha: 1.0))
+    }
 }

@@ -20,7 +20,7 @@ struct FavoriteListScreen: View {
                 ) {
                     Section() {
                         ForEach(Array(vm.plants.enumerated()), id: \.element) { index, plant in
-                            NavigationLink(destination: PlantDetailScreen(plant: plant)) {
+                            NavigationLink(destination: PlantDetailScreen(plantID: plant.id)) {
                                 FavoriteListCell(plant: plant) { _ in
                                     vm.deletePlant(plantID: plant.id)
                                 }

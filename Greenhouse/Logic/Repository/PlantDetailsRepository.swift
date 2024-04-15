@@ -10,7 +10,7 @@ class PlantDetailsRepository {
         self.localSource = localSource
     }
     
-    func getPlantDetails(id: Int) async -> Result<APIPlant, HttpError> {
+    func getPlantDetails(id: Int) async -> Result<APIDetailPlant, HttpError> {
         return await remouteSource.getPlantDetails(id: id)
     }
 }

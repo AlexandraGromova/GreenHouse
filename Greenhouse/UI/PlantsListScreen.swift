@@ -15,7 +15,9 @@ struct PlantsListScreen: View {
                 ScrollView(showsIndicators: false) {
                     LazyVStack {
                         ForEach(Array(vm.plants.enumerated()), id: \.element) { index, plant in
-                            NavigationLink(value: index) {
+                            NavigationLink {
+                                PlantDetailScreen(plantID: plant.id)
+                            } label: {
                                 PlantsListSell(plant: plant) { plant in
                                     vm.savePlant(plant: plant)
                                 } onDeleteTapAction: { id in
@@ -31,11 +33,6 @@ struct PlantsListScreen: View {
                                         } else { vm.tryUpdatePlants()}
                                     }
                                 }
-                                .onTapGesture {
-                                    vm.getPlantDetails(id: plant.id)
-                                }
-                            }.navigationDestination(for: Int.self) { _ in
-                               
                             }
                         }
                     }
@@ -62,11 +59,6 @@ struct PlantsListScreen: View {
                 Spacer()
                 
             }
-        }.onAppear {
-            print("onAppear")
-        }
-        .onDisappear() {
-            print("onDisappear")
         }
     }
 }

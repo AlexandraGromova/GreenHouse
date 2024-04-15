@@ -3,7 +3,7 @@ import Alamofire
 
 class RemouteSource {
     
-    let key = "sk-3uSe660c99e04ad6d4973"
+    let key = "sk-iHnv660c6a14100114066"
     
     func getResponsePlants(currentPage: Int) async -> Result<ResponsePlants, HttpError> {
         let url = "https://perenual.com/api/species-list?key=\(key)&indoor=1&page=\(currentPage)"
@@ -53,12 +53,12 @@ class RemouteSource {
             return response
     }
     
-    func getPlantDetails(id: Int) async -> Result<APIPlant, HttpError> {
+    func getPlantDetails(id: Int) async -> Result<APIDetailPlant, HttpError> {
         let url = "https://perenual.com/api/species/details/\(id)?key=\(key)"
         print("url = \(url)")
         let response = await AF.request(url, interceptor: .retryPolicy)
             .validate()
-            .serializingDecodable(APIPlant.self)
+            .serializingDecodable(APIDetailPlant.self)
             .response.mapError { error in
                 print("test \(error)")
                 let customError = switch error {

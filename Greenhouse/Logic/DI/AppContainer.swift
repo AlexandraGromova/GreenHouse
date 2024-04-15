@@ -43,6 +43,9 @@ class AppContainer {
         container.register(PlantsListVM.self) { r in
             PlantsListVM(getPlantsUC: r.resolve(GetPlantsUC.self)!, getSearchPlantsUC: r.resolve(GetSearchPlantsUC.self)!,  pagination: r.resolve(Pagination.self)!, favoriteRepository: r.resolve(FavoriteListRepository.self)!, getPlantDetailsUC: r.resolve(GetPlantDetailsUC.self)!)
         }
+        container.register(PlantDetailsVM.self) { r in
+            PlantDetailsVM(getPlantDetailsUC: r.resolve(GetPlantDetailsUC.self)!)
+        }
     }
     
     static func resolve<T>(_ serviceType: T.Type) -> T {
