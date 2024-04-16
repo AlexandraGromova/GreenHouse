@@ -29,7 +29,8 @@ struct PlantsListScreen: View {
                                 .onAppear() {
                                     if vm.plants.count - 4 == index {
                                         if isSearchMode {
-                                            vm.getSearchPlants(watering: "average", sunlight: "full_sun")
+                                            print("test_onAppear \(searchParams.sunlight) + \(searchParams.watering)")
+                                            vm.getSearchPlants(watering: searchParams.watering, sunlight: searchParams.sunlight)
                                         } else { vm.tryUpdatePlants()}
                                     }
                                 }
@@ -52,7 +53,11 @@ struct PlantsListScreen: View {
             VStack() {
                 Spacer()
                     .frame(height: 0)
-                SearchBarView(params: $vm.searchParams) {_ in 
+                SearchBarView(params: $vm.searchParams) { params in
+                    print("test_SearchBarView_start \(searchParams.sunlight) + \(searchParams.watering)")
+                    searchParams.sunlight = params.sunlight
+                    searchParams.watering = params.watering
+                    print("test_SearchBarView_finish \(searchParams.sunlight) + \(searchParams.watering)")
                     vm.isSearchMode = true
                     isSearchMode = true
                 }
@@ -62,7 +67,6 @@ struct PlantsListScreen: View {
         }
     }
 }
-
 #Preview {
     PlantsListScreen()
 }
@@ -137,10 +141,16 @@ struct PlantsListSell: View {
 struct SearchBarView: View {
     @Binding var params: SearchParameters
     var onSearchTapAction: (SearchParameters) -> ()
-    let sunlight = ["full_shade", "part_shade", "sun-part_shade", "full_sun", "all"]
-    let watering = ["frequent", "average", "minimum", "all"]
-    @State var paramsSunlight = "all"
-    @State var paramsWatering = "all"
+    //    var sunlightCases: Sunlight = .all
+    
+    @State var sunlightNameAPIform = ""
+    @State var sunlightNameUI = "all"
+    
+    @State var wateringNameAPIform = ""
+    @State var wateringNameUI = "all"
+    
+    //    let sunlight = ["full shade", "part shade", "sun part shade", "full sun", "all"]
+    //    let watering = ["frequent", "average", "minimum", "all"]
     
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
@@ -152,14 +162,33 @@ struct SearchBarView: View {
                 .foregroundStyle(Color.lightGreen)
                 .padding(.vertical, 4)
                 .padding(.horizontal, 10)
+            
             ParametersButton(
-                primaryButton: ExplandableButtonItem(label: paramsSunlight),
-                secondaryButtons: sunlight.map { label in
-                    ExplandableButtonItem(label: label) {
-                        paramsSunlight = label
+                primaryButton: ExplandableButtonItem(label: sunlightNameUI),
+                secondaryButtons: [
+                    ExplandableButtonItem(label: "full shade") {
+                        sunlightNameAPIform = "full_shade"
+                        sunlightNameUI = "full shade"
+                    },
+                    ExplandableButtonItem(label: "part shade") {
+                        sunlightNameAPIform = "part_shade"
+                        sunlightNameUI = "part shade"
+                    },
+                    ExplandableButtonItem(label: "sun part shade") {
+                        sunlightNameAPIform = "sun-part_shade"
+                        sunlightNameUI = "sun part shade"
+                    },
+                    ExplandableButtonItem(label: "full sun") {
+                        sunlightNameAPIform = "full_sun"
+                        sunlightNameUI = "full sun"
+                    },
+                    ExplandableButtonItem(label: "all") {
+                        sunlightNameAPIform = ""
+                        sunlightNameUI = "all"
                     }
-                }
+                ]
             )
+            
             Spacer()
             Image(systemName: "drop.circle.fill")
                 .resizable()
@@ -169,16 +198,29 @@ struct SearchBarView: View {
                 .padding(.vertical, 4)
                 .padding(.horizontal, 10)
             ParametersButton(
-                primaryButton: ExplandableButtonItem(label: paramsWatering),
-                secondaryButtons: watering.map { label in
-                    ExplandableButtonItem(label: label) {
-                        paramsWatering = label
+                primaryButton: ExplandableButtonItem(label: wateringNameUI),
+                secondaryButtons: [
+                    ExplandableButtonItem(label: "frequent") {
+                        wateringNameAPIform = "frequent"
+                        wateringNameUI = "frequent"
+                    },
+                    ExplandableButtonItem(label: "average") {
+                        wateringNameAPIform = "average"
+                        wateringNameUI = "average"
+                    },
+                    ExplandableButtonItem(label: "minimum") {
+                        wateringNameAPIform = "minimum"
+                        wateringNameUI = "minimum"
+                    },
+                    ExplandableButtonItem(label: "all") {
+                        wateringNameAPIform = ""
+                        wateringNameUI = "all"
                     }
-                }
+                ]
             )
             Spacer()
             Button(action: {
-                params = SearchParameters(watering: paramsWatering, sunlight: paramsSunlight)
+                params = SearchParameters(watering: wateringNameAPIform, sunlight: sunlightNameAPIform)
                 onSearchTapAction(params)
             }, label: {
                 Image(systemName: "magnifyingglass.circle.fill")
@@ -190,8 +232,6 @@ struct SearchBarView: View {
         }
     }
 }
-
-
 
 struct ParametersButton: View {
     @State private var isExplanded = false
@@ -244,6 +284,40 @@ struct SearchParameters {
     var watering: String
     var sunlight: String
 }
+
+//class getParamsUC {
+//    func sunlightParams() {
+//        var nameAPI = ""
+//        var nameUI = ""
+//        var sunlight: Sunlight = .all
+//
+//        switch sunlight {
+//        case .full_shade:
+//            nameAPI = "full_shade"
+//            nameUI = "full shade"
+//        case .part_shade:
+//            nameAPI = "part_shade"
+//            nameUI = "part shade"
+//        case .sun_part_shade:
+//            nameAPI = "sun-part_shade"
+//            nameUI = "sun part shade"
+//        case .full_sun:
+//            nameAPI = "full_sun"
+//            nameUI = "full sun"
+//        case .all:
+//            nameAPI = ""
+//            nameUI = "all"
+//        }
+//    }
+//}
+//
+//enum Sunlight {
+//    case full_shade
+//    case part_shade
+//    case sun_part_shade
+//    case full_sun
+//    case all
+//}
 
 
 

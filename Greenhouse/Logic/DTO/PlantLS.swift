@@ -12,7 +12,6 @@ class PlantLS: Object {
         self.common_name = common_name
         self.image = image
     }
-    
 }
 
 class DefaultImageLS: Object {

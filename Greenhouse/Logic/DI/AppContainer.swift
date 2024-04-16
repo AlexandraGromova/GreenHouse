@@ -30,6 +30,9 @@ class AppContainer {
         container.register(GetPlantsUC.self) { r in
             GetPlantsUC(plantsRepository: r.resolve(PlantsRepository.self)!, pagination: r.resolve(Pagination.self)! )
         }
+        container.register(GetFavPlantsUC.self) { r in
+            GetFavPlantsUC(repository: r.resolve(FavoriteListRepository.self)!)
+        }
         container.register(GetSearchPlantsUC.self) { r in
             GetSearchPlantsUC(plantsRepository: r.resolve(SearchPlantsRepository.self)!, pagination: r.resolve(Pagination.self)! )
         }
@@ -41,7 +44,7 @@ class AppContainer {
         }
         
         container.register(PlantsListVM.self) { r in
-            PlantsListVM(getPlantsUC: r.resolve(GetPlantsUC.self)!, getSearchPlantsUC: r.resolve(GetSearchPlantsUC.self)!,  pagination: r.resolve(Pagination.self)!, favoriteRepository: r.resolve(FavoriteListRepository.self)!, getPlantDetailsUC: r.resolve(GetPlantDetailsUC.self)!)
+            PlantsListVM(getPlantsUC: r.resolve(GetPlantsUC.self)!, getSearchPlantsUC: r.resolve(GetSearchPlantsUC.self)!,  pagination: r.resolve(Pagination.self)!, getFavPlantsUC: r.resolve(GetFavPlantsUC.self)!, getPlantDetailsUC: r.resolve(GetPlantDetailsUC.self)!)
         }
         container.register(PlantDetailsVM.self) { r in
             PlantDetailsVM(getPlantDetailsUC: r.resolve(GetPlantDetailsUC.self)!)

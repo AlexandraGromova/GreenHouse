@@ -3,7 +3,7 @@ import Alamofire
 
 class RemouteSource {
     
-    let key = "sk-iHnv660c6a14100114066"
+    let key = "sk-3uSe660c99e04ad6d4973"
     
     func getResponsePlants(currentPage: Int) async -> Result<ResponsePlants, HttpError> {
         let url = "https://perenual.com/api/species-list?key=\(key)&indoor=1&page=\(currentPage)"

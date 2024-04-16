@@ -21,11 +21,9 @@ class GetSearchPlantsUC {
         return result
     }
     
-    
     func updateValuePage() {
         pagination.updateValuePage()
         pagination.getSearchTotalPages()
     }
-    
-    
 }
+

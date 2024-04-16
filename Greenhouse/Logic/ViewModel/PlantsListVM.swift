@@ -9,9 +9,9 @@ class PlantsListVM: ObservableObject {
     @Published var isSearchMode = false
     @Published var searchParams : SearchParameters = SearchParameters(watering: "", sunlight: "")
     
-    @Published private var remotePlants: [UIPlant] = []
+    @Published private var searchPlants: [UIPlant] = []
     
-    private let favoriteRepository: FavoriteListRepository //todo delete
+    private let getFavPlantsUC: GetFavPlantsUC
     private let getPlantsUC: GetPlantsUC
     private let getSearchPlantsUC: GetSearchPlantsUC
     private let getPlantDetailsUC: GetPlantDetailsUC
@@ -19,10 +19,10 @@ class PlantsListVM: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(getPlantsUC: GetPlantsUC, getSearchPlantsUC: GetSearchPlantsUC, pagination: Pagination, favoriteRepository: FavoriteListRepository, getPlantDetailsUC: GetPlantDetailsUC) {
+    init(getPlantsUC: GetPlantsUC, getSearchPlantsUC: GetSearchPlantsUC, pagination: Pagination, getFavPlantsUC: GetFavPlantsUC, getPlantDetailsUC: GetPlantDetailsUC) {
         self.getPlantsUC = getPlantsUC
         self.getSearchPlantsUC = getSearchPlantsUC
-        self.favoriteRepository = favoriteRepository
+        self.getFavPlantsUC = getFavPlantsUC
         self.getPlantDetailsUC = getPlantDetailsUC
         self.pagination = pagination
         $isSearchMode
@@ -37,26 +37,16 @@ class PlantsListVM: ObservableObject {
             .store(in: &cancellables)
         tryUpdatePlants()
         getPlants()
-        $remotePlants
-            .receive(on: DispatchQueue.main)
-            .sink { value in
-            }
-            .store(in: &cancellables)
-        favoriteRepository.getPlants()
-            .receive(on: DispatchQueue.main)
-            .sink { value in
-            }
-            .store(in: &cancellables)
         getRemotePlants()
     }
     
     // ------ fav plants ----- //
     func savePlant(plant: UIPlant) {
-        favoriteRepository.savePlant(plant: PlantLS(id: plant.id, common_name: plant.name, image: plant.image ?? ""))
+        getFavPlantsUC.savePlant(plant: PlantLS(id: plant.id, common_name: plant.name, image: plant.image ?? ""))
     }
     
     func deletePlant(plantID: Int) {
-        favoriteRepository.deletePlant(plantID: plantID)
+        getFavPlantsUC.deletePlant(plantID: plantID)
     }
     // ----- search plants ------ //
     func getSearchPlants(watering: String, sunlight: String) {
@@ -65,10 +55,8 @@ class PlantsListVM: ObservableObject {
             switch result {
             case .success(let value):
                 DispatchQueue.main.async {
-                    var buferList: [UIPlant] = []
-                    buferList = self.remotePlants
-                    buferList.append(contentsOf: value)
-                    self.remotePlants = buferList
+                    self.plants = []
+                    self.searchPlants = value
                 }
             case .failure(let error):
                 print("testResult error \(error)")
@@ -77,8 +65,8 @@ class PlantsListVM: ObservableObject {
     }
     
     private func getRemotePlants() {
-        return $remotePlants
-            .combineLatest(favoriteRepository.getPlants()) { plants, favPlants in
+        return $searchPlants
+            .combineLatest(getFavPlantsUC.execute()) { plants, favPlants in
                 var result: [UIPlant] = []
                 for item in plants {
                     var plant = item
@@ -93,15 +81,12 @@ class PlantsListVM: ObservableObject {
         
     }
     // ------ all plants ------ //
-    func getPlants() {
+    private func getPlants() {
         getPlantsUC.execute()
             .receive(on: DispatchQueue.main)
             .sink { value in
                 if !self.isSearchMode {
-                    var buferList: [UIPlant] = []
-                    self.plants = []
-                    buferList = value
-                    self.plants = buferList
+                    self.plants = value
                 }
             }
             .store(in: &cancellables)
@@ -119,7 +104,7 @@ class PlantsListVM: ObservableObject {
     // ------ plant details ------ //
     func getPlantDetails(id: Int) {
         Task {
-            let result = await self.getPlantDetailsUC.getPlantDetails(id: id)
+            let result = await self.getPlantDetailsUC.execute(id: id)
             switch result {
             case .success(let value):
                 DispatchQueue.main.async {

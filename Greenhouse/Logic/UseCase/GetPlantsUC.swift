@@ -12,7 +12,6 @@ class GetPlantsUC {
     }
     
     func execute() -> AnyPublisher<[UIPlant], Never> {
-        print("execute")
         return plantsRepository.getPlantsFromStorage()
     }
     

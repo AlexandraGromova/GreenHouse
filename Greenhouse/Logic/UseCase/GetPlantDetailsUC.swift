@@ -7,7 +7,7 @@ class GetPlantDetailsUC {
     init(plantRepository: PlantDetailsRepository) {
         self.plantRepository = plantRepository
     }
-    func getPlantDetails(id: Int) async -> Result<UIPlant, HttpError> {
+    func execute(id: Int) async -> Result<UIPlant, HttpError> {
         let result = await plantRepository.getPlantDetails(id: id).flatMap { plant in
                 .success(UIPlant(id: plant.id,
                                  name: plant.common_name,

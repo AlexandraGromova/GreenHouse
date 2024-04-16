@@ -13,7 +13,7 @@ class PlantDetailsVM: ObservableObject {
     
     func getPlantDetails(id: Int) {
         Task {
-            let result = await self.getPlantDetailsUC.getPlantDetails(id: id)
+            let result = await self.getPlantDetailsUC.execute(id: id)
             switch result {
             case .success(let value):
                 DispatchQueue.main.async {
