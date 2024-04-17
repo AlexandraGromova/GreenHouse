@@ -18,22 +18,20 @@ class Pagination {
             let bufferValue = await repository.getTotalPages()
             DispatchQueue.main.async {
                 self.lastPage = bufferValue
-//                print("last_page \(self.lastPage)")
+                print("last_page \(self.lastPage)")
             }
         }
     }
     
     func getSearchTotalPages() {
-        Task {
-            let bufferValue = await searchRepository.getTotalPages()
-            DispatchQueue.main.async {
-                self.lastPage = 0
-                self.lastPage = bufferValue
-            }
-        }
+        print("first")
+        print("getSearchTotalPages_lastPage1  \(lastPage)")
+        lastPage = searchRepository.lastPage
+        print("getSearchTotalPages_lastPage2 \(lastPage)")
     }
     
     func getNewValuesPage() -> Int {
+        print("getNewValuesPage_lastPage \(lastPage)")
         if (page + 1) <= lastPage {
             page += 1
             return page

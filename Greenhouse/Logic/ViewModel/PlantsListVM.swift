@@ -25,6 +25,14 @@ class PlantsListVM: ObservableObject {
         self.getFavPlantsUC = getFavPlantsUC
         self.getPlantDetailsUC = getPlantDetailsUC
         self.pagination = pagination
+        
+        $searchParams
+            .receive(on: DispatchQueue.main)
+            .sink { value in
+                self.searchPlants = []
+            }
+            .store(in: &cancellables)
+        
         $isSearchMode
             .receive(on: DispatchQueue.main)
             .sink { value in
@@ -55,8 +63,10 @@ class PlantsListVM: ObservableObject {
             switch result {
             case .success(let value):
                 DispatchQueue.main.async {
-                    self.plants = []
-                    self.searchPlants = value
+                    var buferList: [UIPlant] = []
+                    buferList = self.searchPlants
+                    buferList.append(contentsOf: value)
+                    self.searchPlants = buferList
                 }
             case .failure(let error):
                 print("testResult error \(error)")
@@ -65,7 +75,7 @@ class PlantsListVM: ObservableObject {
     }
     
     private func getRemotePlants() {
-        return $searchPlants
+        $searchPlants
             .combineLatest(getFavPlantsUC.execute()) { plants, favPlants in
                 var result: [UIPlant] = []
                 for item in plants {
@@ -75,6 +85,7 @@ class PlantsListVM: ObservableObject {
                     }
                     result.append(plant)
                 }
+                print("test_search_u plants \(plants.map{$0.id}) favorits \(favPlants.map{$0.id})")
                 return result
             }
             .assign(to: &$plants)
