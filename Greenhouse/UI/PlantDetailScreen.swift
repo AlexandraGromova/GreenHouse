@@ -22,7 +22,7 @@ struct PlantDetailScreen: View {
     var plantID: Int
     @StateObject var vm = AppContainer.resolve(PlantDetailsVM.self)
     @State var plant: UIPlant = UIPlant(id: 0, name: "", image: "")
-
+    
     var body: some View {
         VStack(spacing: 0) {
             ZStack {
@@ -36,35 +36,7 @@ struct PlantDetailScreen: View {
                         )
                     )
                     .shadow(color: .black, radius: 15)
-                if plant.image == "" {
-                    Image("plug_image2")
-                        .resizable()
-                        .scaledToFit()
-                        .clipShape(
-                            .rect(
-                                bottomLeadingRadius: 45,
-                                bottomTrailingRadius: 45
-                            )
-                        )
-                        .frame(width: UIScreen.screenWidth - 40, height: UIScreen.screenHeight / 2 - 80)
-                        .padding(.top, 30)
-                } else {
-                    AsyncImage(url: URL(string: (plant.image ?? "https://perenual.com/storage/species_image/425_abutilon_hybridum/small/24527654869_ac712f58c7_b.jpg"))) { image in
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .clipShape(
-                                .rect(
-                                    bottomLeadingRadius: 45,
-                                    bottomTrailingRadius: 45
-                                )
-                            )
-                            .frame(width: UIScreen.screenWidth - 40, height: UIScreen.screenHeight / 2 - 40)
-                            .padding(.top, 30)
-                    } placeholder: {
-                        ProgressView()
-                    }
-                }
+                PlantDetailsImage(image: plant.image ?? "")
             }
             ScrollView() {
                 VStack(spacing: 0) {
@@ -103,6 +75,50 @@ struct PlantDetailScreen: View {
         
     }
 }
+
+struct PlantDetailsImage: View {
+    var image: String
+    var body: some View {
+        ZStack {
+            Rectangle()
+                .foregroundStyle(Color.lightGreen)
+                .frame(width: UIScreen.screenWidth, height: UIScreen.screenHeight / 2)
+                .clipShape(
+                    .rect(
+                        bottomLeadingRadius: 50,
+                        bottomTrailingRadius: 50
+                    )
+                )
+                .shadow(color: .black, radius: 15)
+            AsyncImage(url: URL(string: image),
+                       scale: 3) { phase in
+                switch phase {
+                case .empty:
+                    HStack {
+                        ProgressView()
+                    }
+                case .success(let image):
+                    image
+                        .resizable()
+                        .scaledToFit()
+                case .failure(let error):
+                    Text(error.localizedDescription)
+                @unknown default:
+                    EmptyView()
+                }
+            }
+                       .clipShape(
+                        .rect(
+                            bottomLeadingRadius: 45,
+                            bottomTrailingRadius: 45
+                        )
+                       )
+                       .frame(width: UIScreen.screenWidth - 40, height: UIScreen.screenHeight / 2 - 40)
+                       .padding(.top, 30)
+        }
+    }
+}
+
 struct PlantStraightParams: View {
     var plant: UIPlant
     var body: some View {

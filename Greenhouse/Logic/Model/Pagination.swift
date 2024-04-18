@@ -9,6 +9,7 @@ class Pagination {
         self.repository = repository
         self.searchRepository = searchRepository
         getTotalPages()
+        
     }
     var lastPage = 1
     var page = 0
