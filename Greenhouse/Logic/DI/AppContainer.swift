@@ -22,7 +22,7 @@ class AppContainer {
             SearchPlantsRepository(remouteSource: r.resolve(RemouteSource.self)!)
         }
         container.register(FavoriteListRepository.self) { r in
-            FavoriteListRepository(localSourse: r.resolve(LocalSource.self)!)
+            FavoriteListRepository(localSourse: r.resolve(LocalSource.self)!, remouteSource: r.resolve(RemouteSource.self)!)
         }
         container.register(FavoriteListVM.self) { r in
             FavoriteListVM(repository: r.resolve(FavoriteListRepository.self)!)

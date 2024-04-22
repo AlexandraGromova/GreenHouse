@@ -11,7 +11,9 @@ class LocalSource {
             do {
                 try self.realm.write {
                     let listPlantLS = list.map { plant in
-                        PlantLS(id: plant.id, common_name: plant.common_name, image: plant.default_image?.small_url ?? "")
+                        PlantLS(id: plant.id,
+                                common_name: plant.common_name,
+                                image: plant.default_image?.small_url ?? "")
                     }
                     self.realm.add(listPlantLS, update: .all)
                 }
@@ -37,12 +39,26 @@ class LocalSource {
     
     //----------Favorites----------//
     
-    func savePlantInFav(plant: PlantLS) {
+    
+    func savePlantInFav(plant: UIPlant) {
         DispatchQueue.main.async {
             do {
                 try self.realm.write {
-                    let savePlant = FavoritePlant(id: plant.id, common_name: plant.common_name, image: plant.image )
+                    let savePlant = FavoritePlant(id: plant.id,
+                                                  common_name: plant.name,
+                                                  image: plant.image ?? "",
+                                                  origin: "",
+                                                  dimension: plant.dimension,
+                                                  sunlight: "",
+                                                  cycle: plant.cycle,
+                                                  watering: plant.watering,
+                                                  care_level: plant.care_level,
+                                                  medicinal: plant.medicinal
+                                                  
+                    )
+                    print("save_plant")
                     self.realm.add(savePlant, update: .all)
+                    print("save_plant \(self.realm.objects(FavoritePlant.self).count)")
                 }
             }
             catch {
@@ -51,12 +67,30 @@ class LocalSource {
         }
     }
     
+    func getPlantDetails(id: Int) -> FavoritePlant? {
+        guard let object = realm.object(ofType: FavoritePlant.self, forPrimaryKey: id) else {
+            return nil
+        }
+        return object
+    }
+    
     func getPublisherFavPlants() -> AnyPublisher<[UIPlant], Never> {
         return realm.objects(FavoritePlant.self)
             .collectionPublisher
             .map({ result in
                 return result.toArray().map { dbPlant in
-                    UIPlant(id: dbPlant.id, name: dbPlant.common_name, image: dbPlant.image, isFavorite: true)
+                    UIPlant(id: dbPlant.id,
+                            name: dbPlant.common_name,
+                            image: dbPlant.image,
+                            isFavorite: true,
+                            origin: ["", ""],
+                            dimension: dbPlant.dimension,
+                            sunlight: ["", ""],
+                            cycle: dbPlant.cycle,
+                            watering: dbPlant.watering,
+                            care_level: dbPlant.care_level,
+                            medicinal: dbPlant.medicinal
+                    )
                 }
             })
             .replaceError(with: [])

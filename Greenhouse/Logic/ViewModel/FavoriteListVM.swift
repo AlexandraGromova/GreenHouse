@@ -29,7 +29,7 @@ class FavoriteListVM: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func saveFavoritePlant(plant: PlantLS) {
+    func saveFavoritePlant(plant: UIPlant) {
         repository.savePlant(plant: plant)
     }
 

@@ -3,12 +3,14 @@ import Combine
 
 class FavoriteListRepository {
     private let localSourse: LocalSource
+    private let remouteSource: RemouteSource
     
-    init(localSourse: LocalSource) {
+    init(localSourse: LocalSource, remouteSource: RemouteSource) {
         self.localSourse = localSourse
+        self.remouteSource = remouteSource
     }
     
-    func savePlant(plant: PlantLS) {
+    func savePlant(plant: UIPlant) {
         localSourse.savePlantInFav(plant: plant)
     }
     

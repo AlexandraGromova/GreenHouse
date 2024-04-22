@@ -13,7 +13,7 @@ class GetPlantDetailsUC {
                                  name: plant.common_name,
                                  image: plant.default_image?.small_url,
                                  isFavorite: false,
-                                 origin: plant.origin ?? ["", ""], 
+                                 origin: plant.origin ?? ["", ""],
                                  dimension: plant.dimension, 
                                  sunlight: plant.sunlight ?? ["", ""],
                                  cycle: plant.cycle,
@@ -23,5 +23,8 @@ class GetPlantDetailsUC {
                                 ))
         }
         return result
+    }
+    func getPlantDetailFromStorage(id: Int) -> FavoritePlant? {
+        return plantRepository.getPlantDetailFromStorage(id: id)
     }
 }

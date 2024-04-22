@@ -65,6 +65,7 @@ struct PlantDetailScreen: View {
         }
         .ignoresSafeArea()
         .onAppear(){
+            
             vm.getPlantDetails(id: plantID)
         }
         .onChange(of: vm.plantDetails) { newValue in

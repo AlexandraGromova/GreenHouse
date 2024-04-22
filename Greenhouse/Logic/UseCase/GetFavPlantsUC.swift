@@ -8,12 +8,11 @@ class GetFavPlantsUC {
     init(repository: FavoriteListRepository) {
         self.repository = repository
     }
-    
     func execute() -> AnyPublisher<[UIPlant], Never> {
         return repository.getPlants()
     }
     
-    func savePlant(plant: PlantLS) {
+    func savePlant(plant: UIPlant) {
         repository.savePlant(plant: plant)
     }
     

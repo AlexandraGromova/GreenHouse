@@ -13,4 +13,9 @@ class PlantDetailsRepository {
     func getPlantDetails(id: Int) async -> Result<APIDetailPlant, HttpError> {
         return await remouteSource.getPlantDetails(id: id)
     }
+    
+    func getPlantDetailFromStorage(id: Int) -> FavoritePlant? {
+        return localSource.getPlantDetails(id: id)
+    }
+    
 }

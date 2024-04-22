@@ -22,6 +22,7 @@
 		D914CC462B8FE35400D53B42 /* FavoritePlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D914CC452B8FE35400D53B42 /* FavoritePlant.swift */; };
 		D916A5512B84CC9100B0A92B /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A5502B84CC9100B0A92B /* Pagination.swift */; };
 		D916A5532B8CE89400B0A92B /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A5522B8CE89400B0A92B /* Extension.swift */; };
+		D92A815F2BD1BC5800A5F0A4 /* FavPlantLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92A815E2BD1BC5800A5F0A4 /* FavPlantLs.swift */; };
 		D94644992BCD78BC0029A6F5 /* Boska-Variable.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D94644972BCD78BC0029A6F5 /* Boska-Variable.ttf */; };
 		D946449A2BCD78BC0029A6F5 /* Boska-VariableItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D94644982BCD78BC0029A6F5 /* Boska-VariableItalic.ttf */; };
 		D94644A22BCD8FC30029A6F5 /* ClashDisplay-Variable.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D94644A12BCD8FC30029A6F5 /* ClashDisplay-Variable.ttf */; };
@@ -78,6 +79,7 @@
 		D914CC452B8FE35400D53B42 /* FavoritePlant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePlant.swift; sourceTree = "<group>"; };
 		D916A5502B84CC9100B0A92B /* Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pagination.swift; sourceTree = "<group>"; };
 		D916A5522B8CE89400B0A92B /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		D92A815E2BD1BC5800A5F0A4 /* FavPlantLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavPlantLs.swift; sourceTree = "<group>"; };
 		D94644972BCD78BC0029A6F5 /* Boska-Variable.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Boska-Variable.ttf"; sourceTree = "<group>"; };
 		D94644982BCD78BC0029A6F5 /* Boska-VariableItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Boska-VariableItalic.ttf"; sourceTree = "<group>"; };
 		D94644A12BCD8FC30029A6F5 /* ClashDisplay-Variable.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ClashDisplay-Variable.ttf"; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				D9091B1D2B7A47B600F0ADCF /* PlantLS.swift */,
+				D92A815E2BD1BC5800A5F0A4 /* FavPlantLs.swift */,
 				D9C131972B977B9500618DED /* UIPlant.swift */,
 				D914CC452B8FE35400D53B42 /* FavoritePlant.swift */,
 				D95C8C5C2B755C4F004C6929 /* ApiPlants.swift */,
@@ -457,6 +460,7 @@
 				D9135E522B768D3400CBD622 /* PlantsRepository.swift in Sources */,
 				D9091B192B76C63100F0ADCF /* GetPlantsUC.swift in Sources */,
 				D95C8C202B73ECC3004C6929 /* ContentView.swift in Sources */,
+				D92A815F2BD1BC5800A5F0A4 /* FavPlantLs.swift in Sources */,
 				D916A5532B8CE89400B0A92B /* Extension.swift in Sources */,
 				D95C8C1E2B73ECC3004C6929 /* GreenhouseApp.swift in Sources */,
 				D9135E562B769B0400CBD622 /* AppContainer.swift in Sources */,

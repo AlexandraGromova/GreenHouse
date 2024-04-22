@@ -4,7 +4,6 @@ import Combine
 class PlantsListVM: ObservableObject {
     
     @Published var plants: [UIPlant] = []
-    @Published var plantDetails: UIPlant?
     @Published var hasError = true
     @Published var isSearchMode = false
     @Published var searchParams : SearchParameters = SearchParameters(watering: "", sunlight: "")
@@ -50,7 +49,17 @@ class PlantsListVM: ObservableObject {
     
     // ------ fav plants ----- //
     func savePlant(plant: UIPlant) {
-        getFavPlantsUC.savePlant(plant: PlantLS(id: plant.id, common_name: plant.name, image: plant.image ?? ""))
+        Task {
+            let result = await self.getPlantDetailsUC.execute(id: plant.id)
+            switch result {
+            case .success(let value):
+                DispatchQueue.main.async {
+                    self.getFavPlantsUC.savePlant(plant: value)
+                }
+            case .failure(let error):
+                print("testResult error \(error)")
+            }
+        }
     }
     
     func deletePlant(plantID: Int) {
@@ -108,21 +117,6 @@ class PlantsListVM: ObservableObject {
             let bufferValue = await getPlantsUC.tryUpdatePlants()
             DispatchQueue.main.async {
                 self.hasError = bufferValue
-            }
-        }
-    }
-    
-    // ------ plant details ------ //
-    func getPlantDetails(id: Int) {
-        Task {
-            let result = await self.getPlantDetailsUC.execute(id: id)
-            switch result {
-            case .success(let value):
-                DispatchQueue.main.async {
-                    self.plantDetails = value
-                }
-            case .failure(let error):
-                print("testResult error \(error)")
             }
         }
     }
