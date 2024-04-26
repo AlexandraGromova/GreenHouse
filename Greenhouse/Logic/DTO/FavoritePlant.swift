@@ -1,18 +1,6 @@
 import RealmSwift
 import Foundation
 
-//class FavoritePlant: Object {
-//    @Persisted(primaryKey: true) var id: Int
-//    @Persisted var common_name: String
-//    @Persisted var image: String
-//    
-//    convenience init(id: Int, common_name: String, image: String) {
-//        self.init()
-//        self.id = id
-//        self.common_name = common_name
-//        self.image = image
-//    }
-//}
 class FavoritePlant: Object {
     @Persisted(primaryKey: true) var id: Int
     @Persisted var common_name: String
@@ -30,7 +18,7 @@ class FavoritePlant: Object {
                      common_name: String,
                      image: String,
                      
-                     origin: String,
+                     origin: String?,
                      dimension: String?,
                      sunlight: String?,
                      cycle: String?,

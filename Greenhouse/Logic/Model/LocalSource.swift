@@ -54,7 +54,6 @@ class LocalSource {
                                                   watering: plant.watering,
                                                   care_level: plant.care_level,
                                                   medicinal: plant.medicinal
-                                                  
                     )
                     print("save_plant")
                     self.realm.add(savePlant, update: .all)

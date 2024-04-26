@@ -14,16 +14,14 @@ class PlantsListVM: ObservableObject {
     private let getPlantsUC: GetPlantsUC
     private let getSearchPlantsUC: GetSearchPlantsUC
     private let getPlantDetailsUC: GetPlantDetailsUC
-    private let pagination: Pagination
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(getPlantsUC: GetPlantsUC, getSearchPlantsUC: GetSearchPlantsUC, pagination: Pagination, getFavPlantsUC: GetFavPlantsUC, getPlantDetailsUC: GetPlantDetailsUC) {
+    init(getPlantsUC: GetPlantsUC, getSearchPlantsUC: GetSearchPlantsUC, getFavPlantsUC: GetFavPlantsUC, getPlantDetailsUC: GetPlantDetailsUC) {
         self.getPlantsUC = getPlantsUC
         self.getSearchPlantsUC = getSearchPlantsUC
         self.getFavPlantsUC = getFavPlantsUC
         self.getPlantDetailsUC = getPlantDetailsUC
-        self.pagination = pagination
         
         $searchParams
             .receive(on: DispatchQueue.main)
@@ -37,7 +35,7 @@ class PlantsListVM: ObservableObject {
             .sink { value in
                 if value == true {
                     self.plants = []
-                    getSearchPlantsUC.updateValuePage()
+//                    getSearchPlantsUC.updateValuePage()
                     self.getSearchPlants(watering: self.searchParams.watering, sunlight: self.searchParams.sunlight)
                 }
             }
@@ -94,7 +92,7 @@ class PlantsListVM: ObservableObject {
                     }
                     result.append(plant)
                 }
-                print("test_search_u plants \(plants.map{$0.id}) favorits \(favPlants.map{$0.id})")
+//                print("test_search_u plants \(plants.map{$0.id}) favorits \(favPlants.map{$0.id})")
                 return result
             }
             .assign(to: &$plants)
