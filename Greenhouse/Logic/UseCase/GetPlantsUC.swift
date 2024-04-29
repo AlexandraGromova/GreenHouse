@@ -4,6 +4,8 @@ import Combine
 class GetPlantsUC {
     
     private let plantsRepository: PlantsRepository
+    var lastPage = 1
+    var currentPage = 0
     
     init(plantsRepository: PlantsRepository) {
         self.plantsRepository = plantsRepository
@@ -14,9 +16,8 @@ class GetPlantsUC {
     }
     
     func tryUpdatePlants() async -> Bool  {
-        //pagination
-        let error = await plantsRepository.tryUpdatePlants()//pagination.getNewValuesPage()//)
-        if error != nil {
+        let response = await plantsRepository.tryUpdatePlants(currentPage: currentPage)
+        if response != nil {
             return false
         }
         else {

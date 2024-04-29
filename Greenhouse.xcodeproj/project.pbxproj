@@ -20,7 +20,6 @@
 		D914CC402B8FBFC800D53B42 /* FavoriteListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D914CC3F2B8FBFC800D53B42 /* FavoriteListVM.swift */; };
 		D914CC422B8FBFE300D53B42 /* FavoriteListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D914CC412B8FBFE300D53B42 /* FavoriteListRepository.swift */; };
 		D914CC462B8FE35400D53B42 /* FavoritePlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D914CC452B8FE35400D53B42 /* FavoritePlant.swift */; };
-		D916A5512B84CC9100B0A92B /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A5502B84CC9100B0A92B /* Pagination.swift */; };
 		D916A5532B8CE89400B0A92B /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A5522B8CE89400B0A92B /* Extension.swift */; };
 		D94644992BCD78BC0029A6F5 /* Boska-Variable.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D94644972BCD78BC0029A6F5 /* Boska-Variable.ttf */; };
 		D946449A2BCD78BC0029A6F5 /* Boska-VariableItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D94644982BCD78BC0029A6F5 /* Boska-VariableItalic.ttf */; };
@@ -76,7 +75,6 @@
 		D914CC3F2B8FBFC800D53B42 /* FavoriteListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListVM.swift; sourceTree = "<group>"; };
 		D914CC412B8FBFE300D53B42 /* FavoriteListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListRepository.swift; sourceTree = "<group>"; };
 		D914CC452B8FE35400D53B42 /* FavoritePlant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePlant.swift; sourceTree = "<group>"; };
-		D916A5502B84CC9100B0A92B /* Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pagination.swift; sourceTree = "<group>"; };
 		D916A5522B8CE89400B0A92B /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		D94644972BCD78BC0029A6F5 /* Boska-Variable.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Boska-Variable.ttf"; sourceTree = "<group>"; };
 		D94644982BCD78BC0029A6F5 /* Boska-VariableItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Boska-VariableItalic.ttf"; sourceTree = "<group>"; };
@@ -252,7 +250,6 @@
 			isa = PBXGroup;
 			children = (
 				D95C8C552B754C1A004C6929 /* RemouteSource.swift */,
-				D916A5502B84CC9100B0A92B /* Pagination.swift */,
 				D9135E532B768D4B00CBD622 /* LocalSource.swift */,
 			);
 			path = Model;
@@ -466,7 +463,6 @@
 				D9C7710F2BC9C4AD002CC0C9 /* PlantDetailsVM.swift in Sources */,
 				D95C8C4B2B754182004C6929 /* PlantsListScreen.swift in Sources */,
 				D9135E502B768D1700CBD622 /* PlantsListVM.swift in Sources */,
-				D916A5512B84CC9100B0A92B /* Pagination.swift in Sources */,
 				D9C1319E2B9FCC1700618DED /* GetSearchPlantsUC.swift in Sources */,
 				D9C7710D2BC98C42002CC0C9 /* PlantDetailsRepository.swift in Sources */,
 				D95C8C4D2B75419F004C6929 /* FavoriteListScreen.swift in Sources */,
