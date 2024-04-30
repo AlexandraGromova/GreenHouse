@@ -16,11 +16,17 @@ class GetPlantsUC {
     }
     
     func tryUpdatePlants() async -> Bool  {
+        if (currentPage + 1) <= lastPage {
+            currentPage += 1
+        }
         let response = await plantsRepository.tryUpdatePlants(currentPage: currentPage)
-        if response != nil {
+        if response.1 != nil {
+            lastPage = response.0
+            print("tryUpdatePlants()")
             return false
         }
         else {
+            lastPage = response.0
             return true
         }
     }

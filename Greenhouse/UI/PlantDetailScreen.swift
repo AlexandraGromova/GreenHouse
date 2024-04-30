@@ -47,7 +47,7 @@ struct PlantDetailScreen: View {
                         .padding(.horizontal, 25)
                         .padding(.top, 20)
                     
-                    (Text(Image(systemName: "mappin.and.ellipse")) + (Text(plant.origin?.first ?? "" )))
+                    (Text(Image(systemName: "mappin.and.ellipse")) + (Text(plant.origins?.first ?? "" )))
                         .foregroundStyle(Color.lightGreen)
                         .font(.system(size: 20))
                         .bold()
@@ -154,7 +154,7 @@ struct PlantSquareParams: View {
     var body: some View {
         HStack(spacing: 0) {
             SquareCell(text: plant.watering ?? "", image: Image(systemName: "drop.fill"))
-            SquareCell(text: plant.sunlight?.first ?? "", image: Image(systemName: "sun.max.fill"))
+            SquareCell(text: plant.sunlights?.first ?? "", image: Image(systemName: "sun.max.fill"))
             SquareCell(text: plant.cycle ?? "", image: Image(systemName: "arrow.triangle.2.circlepath"))
         }
     }

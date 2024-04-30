@@ -84,13 +84,6 @@ struct FavoriteListCell: View {
                     .bold()
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, 10)
-                
-                Text("\(plant.id)")
-                    .foregroundStyle(isLongPress ? Color.black.opacity(0.2) : Color.gray)
-                    .font(.system(size: 15))
-                    .bold()
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 10)
                 Spacer()
             }
             if isLongPress {

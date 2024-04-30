@@ -27,6 +27,7 @@ class PlantsListVM: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { value in
                 self.searchPlants = []
+                getSearchPlantsUC.reset()
             }
             .store(in: &cancellables)
         
@@ -35,7 +36,6 @@ class PlantsListVM: ObservableObject {
             .sink { value in
                 if value == true {
                     self.plants = []
-//                    getSearchPlantsUC.updateValuePage()
                     self.getSearchPlants(watering: self.searchParams.watering, sunlight: self.searchParams.sunlight)
                 }
             }
@@ -66,6 +66,7 @@ class PlantsListVM: ObservableObject {
     // ----- search plants ------ //
     func getSearchPlants(watering: String, sunlight: String) {
         Task {
+//            getSearchPlantsUC.reset()
             let result = await getSearchPlantsUC.execute(watering: watering, sunlight: sunlight)
             switch result {
             case .success(let value):
@@ -92,7 +93,6 @@ class PlantsListVM: ObservableObject {
                     }
                     result.append(plant)
                 }
-//                print("test_search_u plants \(plants.map{$0.id}) favorits \(favPlants.map{$0.id})")
                 return result
             }
             .assign(to: &$plants)

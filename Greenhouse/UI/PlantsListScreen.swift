@@ -110,12 +110,6 @@ struct PlantsListSell: View {
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
-                Text("\(plant.id)")
-                    .foregroundStyle(Color.gray)
-                    .font(.system(size: 15))
-                    .bold()
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Spacer()
             }
             Spacer()
             Button(action: {
@@ -141,16 +135,12 @@ struct PlantsListSell: View {
 struct SearchBarView: View {
     @Binding var params: SearchParameters
     var onSearchTapAction: (SearchParameters) -> ()
-    //    var sunlightCases: Sunlight = .all
     
     @State var sunlightNameAPIform = ""
     @State var sunlightNameUI = "all"
     
     @State var wateringNameAPIform = ""
     @State var wateringNameUI = "all"
-    
-    //    let sunlight = ["full shade", "part shade", "sun part shade", "full sun", "all"]
-    //    let watering = ["frequent", "average", "minimum", "all"]
     
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
@@ -284,40 +274,4 @@ struct SearchParameters {
     var watering: String
     var sunlight: String
 }
-
-//class getParamsUC {
-//    func sunlightParams() {
-//        var nameAPI = ""
-//        var nameUI = ""
-//        var sunlight: Sunlight = .all
-//
-//        switch sunlight {
-//        case .full_shade:
-//            nameAPI = "full_shade"
-//            nameUI = "full shade"
-//        case .part_shade:
-//            nameAPI = "part_shade"
-//            nameUI = "part shade"
-//        case .sun_part_shade:
-//            nameAPI = "sun-part_shade"
-//            nameUI = "sun part shade"
-//        case .full_sun:
-//            nameAPI = "full_sun"
-//            nameUI = "full sun"
-//        case .all:
-//            nameAPI = ""
-//            nameUI = "all"
-//        }
-//    }
-//}
-//
-//enum Sunlight {
-//    case full_shade
-//    case part_shade
-//    case sun_part_shade
-//    case full_sun
-//    case all
-//}
-
-
 
