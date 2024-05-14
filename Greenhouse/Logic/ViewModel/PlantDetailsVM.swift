@@ -3,7 +3,7 @@ import Combine
 
 class PlantDetailsVM: ObservableObject {
     
-    @Published var plantDetails = UIPlant(id: 0, name: "")
+    @Published var plantDetails = UIPlant(id: 0, name: "", origins: [])
     
     private let getPlantDetailsUC: GetPlantDetailsUC
     
@@ -13,14 +13,14 @@ class PlantDetailsVM: ObservableObject {
     
     func getPlantDetails(id: Int) {
         if getPlantDetailsUC.getPlantDetailFromStorage(id: id) != nil {
-            var plant = getPlantDetailsUC.getPlantDetailFromStorage(id: id).map{ plant in
+            let plant = getPlantDetailsUC.getPlantDetailFromStorage(id: id).map{ plant in
                 (UIPlant(id: plant.id,
                          name: plant.common_name,
                          image: plant.image,
                          isFavorite: false,
-                         origins: ["", ""],
+                         origins: ["\(plant.origins.first ?? "non")", ""],
                          dimension: plant.dimension,
-                         sunlights: ["", ""],
+                         sunlights: ["\(plant.sunlights.first ?? "non")", ""],
                          cycle: plant.cycle,
                          watering: plant.watering,
                          care_level: plant.care_level,
@@ -37,6 +37,7 @@ class PlantDetailsVM: ObservableObject {
                 case .success(let value):
                     DispatchQueue.main.async {
                         self.plantDetails = value
+                        print("test_detail_2 \(value.origins.first ?? "non")")
                     }
                 case .failure(let error):
                     print("testResult error \(error)")

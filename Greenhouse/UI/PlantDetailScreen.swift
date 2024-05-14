@@ -21,7 +21,7 @@ struct PlantDetailScreen: View {
     
     var plantID: Int
     @StateObject var vm = AppContainer.resolve(PlantDetailsVM.self)
-    @State var plant: UIPlant = UIPlant(id: 0, name: "", image: "")
+    @State var plant: UIPlant = UIPlant(id: 0, name: "", image: "", origins: [])
     
     var body: some View {
         VStack(spacing: 0) {
@@ -47,7 +47,7 @@ struct PlantDetailScreen: View {
                         .padding(.horizontal, 25)
                         .padding(.top, 20)
                     
-                    (Text(Image(systemName: "mappin.and.ellipse")) + (Text(plant.origins?.first ?? "" )))
+                    (Text(Image(systemName: "mappin.and.ellipse")) + (Text(((plant.origins.first ?? "") ?? "") )))
                         .foregroundStyle(Color.lightGreen)
                         .font(.system(size: 20))
                         .bold()

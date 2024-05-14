@@ -38,10 +38,10 @@ struct PlantsListScreen: View {
                         }
                     }
                 }
-                if !vm.hasError {
+                if vm.error != nil {
                     Spacer()
                         .frame(height: 0)
-                    Text("No Internet Connection")
+                    Text("\(vm.error?.rawValue ?? "")")
                         .foregroundStyle(Color.white)
                         .font(.system(size: 15))
                         .bold()

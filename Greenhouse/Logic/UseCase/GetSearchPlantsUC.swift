@@ -14,8 +14,6 @@ class GetSearchPlantsUC {
     func execute(watering: String, sunlight: String) async -> Result<[UIPlant], HttpError> {
         if (currentPage + 1) <= lastPage {
             currentPage += 1
-            print("test_lastPage_execute \(lastPage)")
-            print("test_currentPage_execute \(currentPage)")
         }
         let responseResult = await plantsRepository.getResponsePlants(currentPage: currentPage, watering: watering, sunlight: sunlight)
         
@@ -24,7 +22,7 @@ class GetSearchPlantsUC {
             lastPage = response.last_page
             
             let plants = response.data.map { plant in
-                UIPlant(id: plant.id, name: plant.common_name, image: plant.default_image?.small_url, isFavorite: false)
+                UIPlant(id: plant.id, name: plant.common_name, image: plant.default_image?.small_url, isFavorite: false, origins: [])
             }
             return .success(plants)
         case .failure(let error):

@@ -78,9 +78,24 @@ class RemouteSource {
     }
 }
 
-enum HttpError: Error {
-    case noInternet
-    case incorrectJSON
-    case serverError
-    case unknowError
+enum HttpError: String, Error,CaseIterable {
+    case noInternet = "No internet"
+    case incorrectJSON = "Incorrect JSON"
+    case serverError = "Server Error"
+    case unknowError = "Unknow Error"
+    
+//    func toUIError() -> UIError {
+//        switch self {
+//        case .noInternet:
+//            UIError(message: "No internet", description: "", iconName: "")
+//        default:
+//            UIError(message: "Unknown error", description: "", iconName: "")
+//        }
+//    }
 }
+
+//struct UIError {
+//    let message:  String
+//    let description: String
+//    let iconName: String
+//}

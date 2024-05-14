@@ -15,19 +15,17 @@ class GetPlantsUC {
         return plantsRepository.getPlantsFromStorage()
     }
     
-    func tryUpdatePlants() async -> Bool  {
+    func tryUpdatePlants() async -> HttpError?  {
         if (currentPage + 1) <= lastPage {
             currentPage += 1
         }
         let response = await plantsRepository.tryUpdatePlants(currentPage: currentPage)
         if response.1 != nil {
-            lastPage = response.0
-            print("tryUpdatePlants()")
-            return false
+            return response.1
         }
         else {
             lastPage = response.0
-            return true
+            return nil
         }
     }
 }

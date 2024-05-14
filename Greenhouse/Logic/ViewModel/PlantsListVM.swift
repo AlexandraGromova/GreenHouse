@@ -4,7 +4,7 @@ import Combine
 class PlantsListVM: ObservableObject {
     
     @Published var plants: [UIPlant] = []
-    @Published var hasError = true
+    @Published var error: HttpError? = nil
     @Published var isSearchMode = false
     @Published var searchParams : SearchParameters = SearchParameters(watering: "", sunlight: "")
     
@@ -66,7 +66,6 @@ class PlantsListVM: ObservableObject {
     // ----- search plants ------ //
     func getSearchPlants(watering: String, sunlight: String) {
         Task {
-//            getSearchPlantsUC.reset()
             let result = await getSearchPlantsUC.execute(watering: watering, sunlight: sunlight)
             switch result {
             case .success(let value):
@@ -112,9 +111,9 @@ class PlantsListVM: ObservableObject {
     
     func tryUpdatePlants() {
         Task {
-            let bufferValue = await getPlantsUC.tryUpdatePlants()
+            let response = await getPlantsUC.tryUpdatePlants()
             DispatchQueue.main.async {
-                self.hasError = bufferValue
+                self.error = response ?? nil
             }
         }
     }

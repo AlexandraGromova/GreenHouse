@@ -30,7 +30,7 @@ class LocalSource {
             .collectionPublisher
             .map({ result in
                 return result.toArray().map { plantLS in
-                    UIPlant(id: plantLS.id, name: plantLS.common_name, image: plantLS.image)
+                    UIPlant(id: plantLS.id, name: plantLS.common_name, image: plantLS.image, origins: [])
                 }
             })
             .replaceError(with: [])
@@ -47,7 +47,7 @@ class LocalSource {
                     let savePlant = FavoritePlant(id: plant.id,
                                                   common_name: plant.name,
                                                   image: plant.image ?? "",
-                                                  origin: plant.origins?.first,
+                                                  origin: plant.origins.first ?? "",
                                                   dimension: plant.dimension,
                                                   sunlight: plant.sunlights?.first,
                                                   cycle: plant.cycle,
@@ -55,9 +55,8 @@ class LocalSource {
                                                   care_level: plant.care_level,
                                                   medicinal: plant.medicinal
                     )
-                    print("save_plant")
+                    print("save_plant_origins \(plant.origins.first ?? "")")
                     self.realm.add(savePlant, update: .all)
-                    print("save_plant \(self.realm.objects(FavoritePlant.self).count)")
                 }
             }
             catch {
@@ -77,14 +76,15 @@ class LocalSource {
         return realm.objects(FavoritePlant.self)
             .collectionPublisher
             .map({ result in
+                print("test_dbPlant \(String(describing: result.toArray().first?.origins.first))")
                 return result.toArray().map { dbPlant in
                     UIPlant(id: dbPlant.id,
                             name: dbPlant.common_name,
                             image: dbPlant.image,
                             isFavorite: true,
-                            origins: ["", ""],
+                            origins: ["\(dbPlant.origins.first ?? "")"],
                             dimension: dbPlant.dimension,
-                            sunlights: ["", ""],
+                            sunlights: ["\(String(describing: dbPlant.sunlights.first))"],
                             cycle: dbPlant.cycle,
                             watering: dbPlant.watering,
                             care_level: dbPlant.care_level,
@@ -94,6 +94,7 @@ class LocalSource {
             })
             .replaceError(with: [])
             .eraseToAnyPublisher()
+        
     }
     
     func deleteFavPlant(planID: Int) {
