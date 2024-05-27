@@ -29,7 +29,6 @@ struct PlantsListScreen: View {
                                 .onAppear() {
                                     if vm.plants.count - 4 == index {
                                         if isSearchMode {
-                                            print("test_onAppear \(searchParams.sunlight) + \(searchParams.watering)")
                                             vm.getSearchPlants(watering: searchParams.watering, sunlight: searchParams.sunlight)
                                         } else { vm.tryUpdatePlants()}
                                     }
@@ -54,10 +53,8 @@ struct PlantsListScreen: View {
                 Spacer()
                     .frame(height: 0)
                 SearchBarView(params: $vm.searchParams) { params in
-                    print("test_SearchBarView_start \(searchParams.sunlight) + \(searchParams.watering)")
                     searchParams.sunlight = params.sunlight
                     searchParams.watering = params.watering
-                    print("test_SearchBarView_finish \(searchParams.sunlight) + \(searchParams.watering)")
                     vm.isSearchMode = true
                     isSearchMode = true
                 }

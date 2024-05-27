@@ -30,7 +30,7 @@ class LocalSource {
             .collectionPublisher
             .map({ result in
                 return result.toArray().map { plantLS in
-                    UIPlant(id: plantLS.id, name: plantLS.common_name, image: plantLS.image, origins: [])
+                    UIPlant(id: plantLS.id, name: plantLS.common_name, image: plantLS.image, origins: [], sunlights: [])
                 }
             })
             .replaceError(with: [])
@@ -47,15 +47,14 @@ class LocalSource {
                     let savePlant = FavoritePlant(id: plant.id,
                                                   common_name: plant.name,
                                                   image: plant.image ?? "",
-                                                  origin: plant.origins.first ?? "",
+                                                  origin: plant.origins.first ?? "No information",
                                                   dimension: plant.dimension,
-                                                  sunlight: plant.sunlights?.first,
+                                                  sunlight: plant.sunlights.first ?? "No information",
                                                   cycle: plant.cycle,
                                                   watering: plant.watering,
                                                   care_level: plant.care_level,
                                                   medicinal: plant.medicinal
                     )
-                    print("save_plant_origins \(plant.origins.first ?? "")")
                     self.realm.add(savePlant, update: .all)
                 }
             }
@@ -76,13 +75,13 @@ class LocalSource {
         return realm.objects(FavoritePlant.self)
             .collectionPublisher
             .map({ result in
-                print("test_dbPlant \(String(describing: result.toArray().first?.origins.first))")
+//                print("test_dbPlant_origins \(result.toArray().first!.origins.first)")
                 return result.toArray().map { dbPlant in
                     UIPlant(id: dbPlant.id,
                             name: dbPlant.common_name,
                             image: dbPlant.image,
                             isFavorite: true,
-                            origins: ["\(dbPlant.origins.first ?? "")"],
+                            origins: ["\(dbPlant.origins.first ?? "No information")"],
                             dimension: dbPlant.dimension,
                             sunlights: ["\(String(describing: dbPlant.sunlights.first))"],
                             cycle: dbPlant.cycle,

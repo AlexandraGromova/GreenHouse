@@ -6,9 +6,9 @@ class FavoritePlant: Object {
     @Persisted var common_name: String
     @Persisted var image: String
     
-    @Persisted var origins: List<String?>
+    @Persisted var origins: List<String>
     @Persisted var dimension: String? = ""
-    @Persisted var sunlights: List<String?>
+    @Persisted var sunlights: List<String>
     @Persisted var cycle: String? = ""
     @Persisted var watering: String? = ""
     @Persisted var care_level: String? = ""
@@ -18,9 +18,9 @@ class FavoritePlant: Object {
                      common_name: String,
                      image: String,
                      
-                     origin: String?,
+                     origin: String,
                      dimension: String?,
-                     sunlight: String?,
+                     sunlight: String,
                      cycle: String?,
                      watering: String?,
                      care_level: String?,

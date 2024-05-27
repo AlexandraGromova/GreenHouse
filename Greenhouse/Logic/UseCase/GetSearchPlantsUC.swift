@@ -22,7 +22,7 @@ class GetSearchPlantsUC {
             lastPage = response.last_page
             
             let plants = response.data.map { plant in
-                UIPlant(id: plant.id, name: plant.common_name, image: plant.default_image?.small_url, isFavorite: false, origins: [])
+                UIPlant(id: plant.id, name: plant.common_name, image: plant.default_image?.small_url, isFavorite: false, origins: [], sunlights: [])
             }
             return .success(plants)
         case .failure(let error):

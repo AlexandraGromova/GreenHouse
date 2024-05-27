@@ -21,7 +21,7 @@ struct PlantDetailScreen: View {
     
     var plantID: Int
     @StateObject var vm = AppContainer.resolve(PlantDetailsVM.self)
-    @State var plant: UIPlant = UIPlant(id: 0, name: "", image: "", origins: [])
+    @State var plant: UIPlant = UIPlant(id: 0, name: "", image: "", origins: [], sunlights: [])
     
     var body: some View {
         VStack(spacing: 0) {
@@ -47,7 +47,7 @@ struct PlantDetailScreen: View {
                         .padding(.horizontal, 25)
                         .padding(.top, 20)
                     
-                    (Text(Image(systemName: "mappin.and.ellipse")) + (Text(((plant.origins.first ?? "") ?? "") )))
+                    (Text(Image(systemName: "mappin.and.ellipse")) + (Text(((plant.origins.first ?? "No information") ?? "") )))
                         .foregroundStyle(Color.lightGreen)
                         .font(.system(size: 20))
                         .bold()
@@ -123,8 +123,8 @@ struct PlantStraightParams: View {
     var plant: UIPlant
     var body: some View {
         VStack (alignment: .leading, spacing: 2){
-            StraightCell(name: "care level:", text: "\(plant.care_level ?? "")")
-            StraightCell(name: "dimension:", text: "\(plant.dimension ?? "")")
+            StraightCell(name: "care level:", text: "\(plant.care_level ?? "No information")")
+            StraightCell(name: "dimension:", text: "\(plant.dimension ?? "No information")")
             StraightCell(name: "medicinal:", text: "\(plant.medicinal ?? false)")
         }
         .foregroundStyle(Color.black)
@@ -142,7 +142,7 @@ struct StraightCell: View {
                 .foregroundStyle(Color.darkGreen)
                 .font(Font.custom("ClashDisplayVariable-Bold_Light", size: 23))
                 .fontWeight(.regular)
-            Text(text ?? "nil")
+            Text(text ?? "No information")
                 .font(Font.custom("BoskaVariable-Extralight-Italic_Black-Italic", size: 24))
                 .fontWeight(.bold)
         }
@@ -153,9 +153,9 @@ struct PlantSquareParams: View {
     var plant: UIPlant
     var body: some View {
         HStack(spacing: 0) {
-            SquareCell(text: plant.watering ?? "", image: Image(systemName: "drop.fill"))
-            SquareCell(text: plant.sunlights?.first ?? "", image: Image(systemName: "sun.max.fill"))
-            SquareCell(text: plant.cycle ?? "", image: Image(systemName: "arrow.triangle.2.circlepath"))
+            SquareCell(text: plant.watering ?? "No information", image: Image(systemName: "drop.fill"))
+            SquareCell(text: plant.sunlights.first ?? "No information", image: Image(systemName: "sun.max.fill"))
+            SquareCell(text: plant.cycle ?? "No information", image: Image(systemName: "arrow.triangle.2.circlepath"))
         }
     }
 }
