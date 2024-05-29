@@ -12,7 +12,7 @@ class LocalSource {
                 try self.realm.write {
                     let listPlantLS = list.map { plant in
                         PlantLS(id: plant.id,
-                                common_name: plant.common_name,
+                                common_name: plant.common_name.capitalizeFirstLetter().replacingOccurrences(of: "-", with: " "),
                                 image: plant.default_image?.small_url ?? "")
                     }
                     self.realm.add(listPlantLS, update: .all)
@@ -30,7 +30,7 @@ class LocalSource {
             .collectionPublisher
             .map({ result in
                 return result.toArray().map { plantLS in
-                    UIPlant(id: plantLS.id, name: plantLS.common_name, image: plantLS.image, origins: [], sunlights: [])
+                    UIPlant(id: plantLS.id, name: plantLS.common_name.capitalizeFirstLetter().replacingOccurrences(of: "-", with: " "), image: plantLS.image, origins: [], sunlights: [])
                 }
             })
             .replaceError(with: [])
@@ -45,7 +45,7 @@ class LocalSource {
             do {
                 try self.realm.write {
                     let savePlant = FavoritePlant(id: plant.id,
-                                                  common_name: plant.name,
+                                                  common_name: plant.name.capitalizeFirstLetter().replacingOccurrences(of: "-", with: " "),
                                                   image: plant.image ?? "",
                                                   origin: plant.origins.first ?? "No information",
                                                   dimension: plant.dimension,
@@ -75,10 +75,9 @@ class LocalSource {
         return realm.objects(FavoritePlant.self)
             .collectionPublisher
             .map({ result in
-//                print("test_dbPlant_origins \(result.toArray().first!.origins.first)")
                 return result.toArray().map { dbPlant in
                     UIPlant(id: dbPlant.id,
-                            name: dbPlant.common_name,
+                            name: dbPlant.common_name.capitalizeFirstLetter().replacingOccurrences(of: "-", with: " "),
                             image: dbPlant.image,
                             isFavorite: true,
                             origins: ["\(dbPlant.origins.first ?? "No information")"],

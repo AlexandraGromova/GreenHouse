@@ -10,12 +10,13 @@ class PlantDetailsVM: ObservableObject {
     init(getPlantDetailsUC: GetPlantDetailsUC) {
         self.getPlantDetailsUC = getPlantDetailsUC
     }
+
     
     func getPlantDetails(id: Int) {
         if getPlantDetailsUC.getPlantDetailFromStorage(id: id) != nil {
             let plant = getPlantDetailsUC.getPlantDetailFromStorage(id: id).map{ plant in
                 (UIPlant(id: plant.id,
-                         name: plant.common_name,
+                         name: plant.common_name.capitalizeFirstLetter().replacingOccurrences(of: "-", with: " "),
                          image: plant.image,
                          isFavorite: false,
                          origins: ["\(plant.origins.first ?? "No information")", ""],
@@ -43,5 +44,11 @@ class PlantDetailsVM: ObservableObject {
                 }
             }
         }
+    }
+}
+
+extension String {
+    func capitalizeFirstLetter() -> String {
+        return self.prefix(1).capitalized + self.dropFirst(1).lowercased()
     }
 }

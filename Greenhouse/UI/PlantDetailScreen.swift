@@ -40,14 +40,14 @@ struct PlantDetailScreen: View {
             }
             ScrollView() {
                 VStack(spacing: 0) {
-                    Text(plant.name)
+                    Text(plant.name.capitalizeFirstLetter().replacingOccurrences(of: "-", with: " "))
                         .font(Font.custom("ClashDisplayVariable-Bold_Light", size: 40))
                         .fontWeight(.semibold)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 25)
                         .padding(.top, 20)
                     
-                    (Text(Image(systemName: "mappin.and.ellipse")) + (Text(((plant.origins.first ?? "No information") ?? "") )))
+                    (Text(Image(systemName: "mappin.and.ellipse")) + (Text(plant.origins.first ?? "No information")))
                         .foregroundStyle(Color.lightGreen)
                         .font(.system(size: 20))
                         .bold()
@@ -78,6 +78,7 @@ struct PlantDetailScreen: View {
 
 struct PlantDetailsImage: View {
     var image: String
+    
     var body: some View {
         ZStack {
             Rectangle()
@@ -94,9 +95,14 @@ struct PlantDetailsImage: View {
                        scale: 3) { phase in
                 switch phase {
                 case .empty:
-                    HStack {
-                        ProgressView()
-                    }
+                    ShimmerLoading()
+                        .clipShape(
+                            .rect(
+                                bottomLeadingRadius: 45,
+                                bottomTrailingRadius: 45
+                            )
+                        )
+                        .frame(width: UIScreen.screenWidth - 40, height: UIScreen.screenHeight / 2 - 70)
                 case .success(let image):
                     image
                         .resizable()
@@ -190,3 +196,20 @@ struct SquareCell: View {
 #Preview {
     MainScreen()
 }
+
+struct ShimmerLoading: View {
+    let gradientColor = [Color.gray, Color.clear, Color.gray]
+    @State var startPoint: UnitPoint = .init(x: -1, y: 0.5)
+    @State var endPoint: UnitPoint = .init(x: 0, y: 0.5)
+    
+    var body: some View {
+        LinearGradient(colors: gradientColor, startPoint: startPoint, endPoint: endPoint)
+            .onAppear() {
+                withAnimation(.easeInOut(duration: 4).repeatForever(autoreverses: true)) {
+                    startPoint = .init(x: 3.5, y: 1.5)
+                    endPoint = .init(x: 3.5, y: 0.5)
+                }
+            }
+    }
+}
+
