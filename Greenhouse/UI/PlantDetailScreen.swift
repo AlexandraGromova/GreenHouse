@@ -21,7 +21,7 @@ struct PlantDetailScreen: View {
     
     var plantID: Int
     @StateObject var vm = AppContainer.resolve(PlantDetailsVM.self)
-    @State var plant: UIPlant = UIPlant(id: 0, name: "", image: "", origins: [], sunlights: [])
+    @State var plant: UIPlant = UIPlant(id: 0, name: "No information", image: "", origins: [], sunlights: [])
     
     var body: some View {
         VStack(spacing: 0) {
@@ -41,12 +41,11 @@ struct PlantDetailScreen: View {
             ScrollView() {
                 VStack(spacing: 0) {
                     Text(plant.name.capitalizeFirstLetter().replacingOccurrences(of: "-", with: " "))
-                        .font(Font.custom("ClashDisplayVariable-Bold_Light", size: 40))
+                        .font(Font.custom("ClashDisplayVariable-Bold_Light", size: plant.name.count > 14 ? 35 : 40))
                         .fontWeight(.semibold)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 25)
                         .padding(.top, 20)
-                    
                     (Text(Image(systemName: "mappin.and.ellipse")) + (Text(plant.origins.first ?? "No information")))
                         .foregroundStyle(Color.lightGreen)
                         .font(.system(size: 20))

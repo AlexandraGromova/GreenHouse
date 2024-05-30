@@ -70,6 +70,7 @@ struct PlantsListScreen: View {
 
 struct PlantsListSell: View {
     @State var plant: UIPlant
+    @State private var scale = 1.0
     var onFavoriteTapAction: (UIPlant) -> ()
     var onDeleteTapAction: (Int) -> ()
     
@@ -101,7 +102,7 @@ struct PlantsListSell: View {
             Spacer()
             VStack() {
                 Spacer()
-                Text(plant.name)
+                Text(plant.name.capitalizeFirstLetter().replacingOccurrences(of: "-", with: " "))
                     .foregroundStyle(Color.white)
                     .font(.system(size: 20))
                     .bold()
@@ -111,9 +112,17 @@ struct PlantsListSell: View {
             Spacer()
             Button(action: {
                 if plant.isFavorite == true {
+                    scale += 0.2
+                    DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
+                        scale -= 0.2
+                    }
                     onDeleteTapAction(plant.id)
                 }
                 else {
+                    scale += 0.2
+                    DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
+                        scale -= 0.2
+                    }
                     onFavoriteTapAction(plant)
                 }
             }) {
@@ -122,6 +131,8 @@ struct PlantsListSell: View {
                     .frame(width: 50, height: 50)
                     .padding(.horizontal, 8)
                     .foregroundStyle(plant.isFavorite == true ? Color.lightGreen : Color.white)
+                    .scaleEffect(scale)
+                    .animation(.bouncy, value: scale)
             }
             Spacer()
         }
