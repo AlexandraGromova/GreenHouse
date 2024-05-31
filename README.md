@@ -31,9 +31,11 @@ This mobile application is designed for enthusiasts of indoor plants. Users can 
 
 <br>
 <br>
+
 You need to register on [Perenual](https://perenual.com) -> go to the API Docs section<br>
 -> tap on "Get api key & access" -><br>
 insert your generated key into the project in the RemouteSource file under the variable key.<br>
+
    <br>
    <br>
    <br>
