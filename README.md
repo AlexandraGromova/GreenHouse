@@ -8,22 +8,28 @@ This mobile application is designed for enthusiasts of indoor plants. Users can 
 <p align="center">
 <img src="https://github.com/AlexandraGromova/Greenhouse/assets/75542410/de36073b-5bbc-4c88-9017-dc005d6f6e0f"/>
 </p>
-  
-<img src="![Simulator Screen 2024-05-31 at 00 59 16](https://github.com/AlexandraGromova/Greenhouse/assets/75542410/d4a5f415-bab3-4232-af55-0398b9f7a064)
-" align="right" width="200"/>
+
 
   ## Tech stack & Open-source libraries
+
+<img src="https://github.com/AlexandraGromova/Greenhouse/assets/75542410/6ec53e1a-c126-4dc0-8557-478ad2e61c28" align="right" width="200"/>
+  <br>
+   <br>
+
 - Minimum SDK level 17.0 
 - [Swinject](https://github.com/Swinject/Swinject) for implement the Dependency Injection pattern
 - [Alamofire](https://github.com/Alamofire/Alamofire) - working with HTTP network
 - Combine - Publisher-Subscriber pattern
 - [RealmSwift](https://github.com/realm/realm-swift) for saved favorite plants and offline viewing
 
-  
- ## Architecture
+<br>
+
+ ### Architecture
  - MVVM
  - UseCase
  - Repository
+
+ <br>
 
   ## How to use
 
