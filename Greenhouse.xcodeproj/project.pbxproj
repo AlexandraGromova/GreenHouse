@@ -38,7 +38,7 @@
 		D95C8C562B754C1A004C6929 /* RemouteSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C8C552B754C1A004C6929 /* RemouteSource.swift */; };
 		D95C8C5B2B754DF0004C6929 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D95C8C5A2B754DF0004C6929 /* Alamofire */; };
 		D95C8C5D2B755C4F004C6929 /* ApiPlants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95C8C5C2B755C4F004C6929 /* ApiPlants.swift */; };
-		D99B6B222C230A0D002D0392 /* Screen-Recording.gif in Resources */ = {isa = PBXBuildFile; fileRef = D99B6B212C230A0C002D0392 /* Screen-Recording.gif */; };
+		D99B6B272C230ED1002D0392 /* Screen-Recording18.gif in Resources */ = {isa = PBXBuildFile; fileRef = D99B6B262C230ED1002D0392 /* Screen-Recording18.gif */; };
 		D9C131982B977B9500618DED /* UIPlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C131972B977B9500618DED /* UIPlant.swift */; };
 		D9C1319A2B97800D00618DED /* PlantDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C131992B97800D00618DED /* PlantDetailScreen.swift */; };
 		D9C1319C2B9FCAD000618DED /* SearchPlantsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C1319B2B9FCAD000618DED /* SearchPlantsRepository.swift */; };
@@ -98,7 +98,7 @@
 		D95C8C552B754C1A004C6929 /* RemouteSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemouteSource.swift; sourceTree = "<group>"; };
 		D95C8C572B754C7A004C6929 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D95C8C5C2B755C4F004C6929 /* ApiPlants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiPlants.swift; sourceTree = "<group>"; };
-		D99B6B212C230A0C002D0392 /* Screen-Recording.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "Screen-Recording.gif"; path = "../../../../Downloads/Screen-Recording.gif"; sourceTree = "<group>"; };
+		D99B6B262C230ED1002D0392 /* Screen-Recording18.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "Screen-Recording18.gif"; path = "../../../../Downloads/Screen-Recording18.gif"; sourceTree = "<group>"; };
 		D9C131972B977B9500618DED /* UIPlant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPlant.swift; sourceTree = "<group>"; };
 		D9C131992B97800D00618DED /* PlantDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantDetailScreen.swift; sourceTree = "<group>"; };
 		D9C1319B2B9FCAD000618DED /* SearchPlantsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlantsRepository.swift; sourceTree = "<group>"; };
@@ -195,7 +195,6 @@
 				D9C131962B967B6700618DED /* Logic */,
 				D95C8C212B73ECC5004C6929 /* Assets.xcassets */,
 				D95C8C232B73ECC5004C6929 /* Greenhouse.entitlements */,
-				D99B6B1E2C2309A1002D0392 /* Preview */,
 				D95C8C242B73ECC5004C6929 /* Preview Content */,
 			);
 			path = Greenhouse;
@@ -204,6 +203,7 @@
 		D95C8C242B73ECC5004C6929 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				D99B6B262C230ED1002D0392 /* Screen-Recording18.gif */,
 				D95C8C252B73ECC5004C6929 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -288,14 +288,6 @@
 				D9C7710C2BC98C42002CC0C9 /* PlantDetailsRepository.swift */,
 			);
 			path = Repository;
-			sourceTree = "<group>";
-		};
-		D99B6B1E2C2309A1002D0392 /* Preview */ = {
-			isa = PBXGroup;
-			children = (
-				D99B6B212C230A0C002D0392 /* Screen-Recording.gif */,
-			);
-			path = Preview;
 			sourceTree = "<group>";
 		};
 		D9C131962B967B6700618DED /* Logic */ = {
@@ -429,7 +421,7 @@
 				D94644992BCD78BC0029A6F5 /* Boska-Variable.ttf in Resources */,
 				D946449A2BCD78BC0029A6F5 /* Boska-VariableItalic.ttf in Resources */,
 				D94644A22BCD8FC30029A6F5 /* ClashDisplay-Variable.ttf in Resources */,
-				D99B6B222C230A0D002D0392 /* Screen-Recording.gif in Resources */,
+				D99B6B272C230ED1002D0392 /* Screen-Recording18.gif in Resources */,
 				D95C8C262B73ECC5004C6929 /* Preview Assets.xcassets in Resources */,
 				D95C8C222B73ECC5004C6929 /* Assets.xcassets in Resources */,
 			);
