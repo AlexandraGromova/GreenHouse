@@ -54,5 +54,10 @@ insert your generated key into the project in the RemouteSource file under the v
   
   Thank you for such a wonderful open resource and the opportunity to use it.
 
+  ## For users
+  I made this application alone and I understand that there may be a number of errors in it.
+  
+  I would be grateful if you let me know about it!⭐
+
 
 
